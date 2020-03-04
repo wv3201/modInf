@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import listaExam from '../assets/json/bd.json';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+  isShown:boolean=false;
   title = 'ModuloInfo';
+  bd: any = listaExam;
 }
