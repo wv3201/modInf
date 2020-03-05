@@ -1,6 +1,51 @@
 .dsa{
-    border:1px solid blue;
-    height:10px;
+    border:1px #2d90fa;
+    height: 35px !important;
+    background-color: solid blue !important;
+}
+.mat-toolbar.mat-primary{
+  background-color: #2d90fa;
+  color: #fff;
+}
+button{
+  background-color: #2d90fa;
+  border: 1px #2d90fa;
+  font-size: 16px !important;
+  margin-right: 5px;
+  color: #fff;
+}
+span {
+  text-align: center !important;
+  text-anchor: center !important;
+  margin-bottom: 5px;
+}
+.item{
+  background-color: #fff;
+  width:200px;
+  height:30px;
+  margin-top: 5px;
+  font-size: 12px !important;
+  color: #000000;
+  border: 1px solid black !important;
+}
+.item2{
+  background-color: #fff;
+  height: 30px !important;
+  width:150px;
+  font-size: 12px !important;
+  color: #000000;
+}
+a{
+  color: #fff !important;
+}
+.b{
+  color: #000 !important;
+}
+.men{
+  background-color: #2d90fa;
+  border: 1px #2d90fa;
+  height: 32px !important;
+  color: #fff !important;
 }
 div.table {
     display: table;
