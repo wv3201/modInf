@@ -20,6 +20,8 @@
                     <button (click)=abrirModal()>
                         <mat-icon>collections</mat-icon>
                     </button>
+                    <button type="button" class="btn btn-dark" onclick="cambiarModo()">Oscuro / Claro</button>
+
                 </div>
                 <div id="ex">
                     <b>Informes previos</b><Br>
@@ -60,9 +62,7 @@
                                 <select #medico (change)="evtselt3($event.target.value)">
                                     <option *ngFor="let me of m" value="{{me.id}}">{{me.Nombre}}</option>
                                 </select><br>
-                                <img *ngIf="profilePic[1]" [src]="profilePic[1]" class="img-thumbnail"><br>
                             </div>
-                            <!--<p *ngIf="profilePic[0]">¿Desea añadir otra firma?</p>-->
                         </div>
                         <div>
                             <br>
@@ -101,14 +101,14 @@
                         <button id="ex" (click)="cleanh()">
                             <mat-icon>cancel</mat-icon>
                         </button>&nbsp;<br>
-                        <textarea id="a" [(ngModel)]='ITHalla' type="text" name="Hallazgos" value="{{ITHalla}}" (keydown)="evtselt5($event,'ha')" (keyup.Space)="evtselt6($event)">
+                        <textarea id="a" [(ngModel)]='ITHalla' type="text" name="Hallazgos" value="{{ITHalla}}" (keydown)="evtselt5($event,'ha')" (keyup.Space)="evtselt6($event)" (keydown)="onKeydown($event)" (keydown.tab)="evtselt6($event)">
                         </textarea>
                         <br>
                         <mat-icon>textsms</mat-icon>&nbsp;<label>Impresión</label>&nbsp;
                         <button id="ex" (click)="cleani()">
                             <mat-icon>cancel</mat-icon>
                         </button>&nbsp;<br>
-                        <textarea id="a" [(ngModel)]='ITImpre' type="text" name="Impresión" value="{{ITImpre}}" (keydown)="evtselt5($event,'im')" (keyup.enter)="evtselt6($event)">
+                        <textarea id="a" [(ngModel)]='ITImpre' type="text" name="Impresión" value="{{ITImpre}}" (keydown)="evtselt5($event,'im')" (keyup.Space)="evtselt6($event)" (keydown)="onKeydown($event)">
                     </textarea>
                     </div>
                 </div>
@@ -122,7 +122,7 @@
         <div class="cell3"><br>
             <div id="center">
                 <div id=pdf>
-                    <iframe id="plugin" type="application/pdf" [src]="imge()"
+                    <iframe *ngIf="iframe" id="plugin" type="application/pdf" [src]="imge()"
                         stream-url="chrome-extension://mhjfbmdgcfjbbpaeojofohoefgiehjai/9998104a-f5f8-43cf-b25c-0a193ae75822"
                         headers="Content-Length: 11570 Content-Type: application/pdf" background-color="0xFF525659"
                         top-toolbar-height="36" javascript="allow" full-frame=""></iframe>

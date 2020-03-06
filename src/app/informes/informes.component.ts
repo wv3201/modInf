@@ -64,20 +64,22 @@ export class InformesComponent implements OnInit {
     imgs: any;
     as: any[];
     fecha: any;
-    documentDefinition3 = this.pdf.loadTemplate(this.data, this.ITImpre, this.ITHalla, this.ITAnte, null, this.tit, this.tec, this.profilePic, '--', null, "");
+    documentDefinition3:any;
+    iframe:boolean;
 
     constructor(sanity: DomSanitizer, private http: HttpClient, public speech: SpeechService, private Service: HttpServiceService, private pdf: PdfService, private matDialog: MatDialog, public forms: FormsModule, private rutaActiva: ActivatedRoute, private infor: InformesService) {
-        this.loadData();
+        //this.loadData();
         this.loadS();
         this.sanity = sanity;
     }
     ngOnInit(): void {
         this.loadData();
+        this.iframe=false;
         /*setInterval(()=>{
             //this.imge();
             this.pdf1(this.documentDefinition3);
         },1000);*/
-        this.pdf1(this.documentDefinition3);
+        
         this.user = users;
         this.speech.init();
         this.speech.stop();
@@ -91,6 +93,7 @@ export class InformesComponent implements OnInit {
             takeUntil(this._destroyed)
         ).subscribe(started => this.started = started);
     }
+   
     //evento al elegir plantilla se cargue tecnica, titulo, y examen realizado
     evtselt(plan: any) {
         var c;
@@ -112,7 +115,7 @@ export class InformesComponent implements OnInit {
                 this.pdf1(this.pdf.loadTemplate(this.data, this.ITImpre, this.ITHalla, this.ITAnte, this.medicos, this.tit, this.tec, this.profilePic, '--', this.plantilla, ""));
             });
         } else {
-            this.pdf1(this.pdf.loadTemplate(this.data, this.ITImpre, this.ITHalla, this.ITAnte, this.medicos, this.tit, this.tec, this.profilePic, '--', this.plantilla, ""));
+            this.pdf1(this.pdf.loadTemplate(this.data, this.ITImpre, this.ITHalla, this.ITAnte, this.medicos, this.tit, this.tec, this.profilePic, this.fecha, this.plantilla, this.medicoI));
         }
     }
     //evento para cargar las plantillas segun el medico seleccionado
@@ -137,8 +140,9 @@ export class InformesComponent implements OnInit {
                 //console.log(base64data);
                 console.log('1');
                 this.profilePic[0] = 'data:image/jpg;base64,' + base64data;
-                this.pdf1(this.pdf.loadTemplate(this.data, this.ITImpre, this.ITHalla, this.ITAnte, this.medicos, this.tit, this.tec, this.profilePic, '--', this.us[0], ""));
+                this.pdf1(this.pdf.loadTemplate(this.data, this.ITImpre, this.ITHalla, this.ITAnte, this.medicos, this.tit, this.tec, this.profilePic, this.fecha, this.us[0], this.medicoI));
             });
+            this.iframe=true;
         }
     }
     //cargar firma medico informante
@@ -153,7 +157,6 @@ export class InformesComponent implements OnInit {
                 this.medicoI = users[i];
             }
         }
-        console.log(medico==0)
         if (medico == 0) {
             this.profilePic[1] = null;
         } else {
@@ -195,10 +198,15 @@ export class InformesComponent implements OnInit {
                 break;
         }
         this.documentDefinition3 = this.pdf.loadTemplate(this.data, this.ITImpre, this.ITHalla, this.ITAnte, this.medicos, this.tit, this.tec, this.profilePic, this.fecha, this.plantilla, this.medicoI);
-        //
+        
     }
     evtselt6(event){
         this.pdf1(this.documentDefinition3);
+    }
+    onKeydown(event){
+        if(event.key === "." || event.key === ","){
+            this.pdf1(this.documentDefinition3);
+        }
     }
     //obtener base64 de la url de una imagen
     getBase64ImageFromURL(url: string) {
@@ -314,6 +322,10 @@ export class InformesComponent implements OnInit {
             this.speech.start();
         }
     }
+    cambiarModo(){
+        var cuerpoweb= document.body;
+        cuerpoweb.classList.toggle("oscuro");
+    }
     //metodo para generar informe en pdf
     generatePdf(med, tit, tec, fecf: string, plant, me) {
         for (let i = 0; i < users.length; i++) {
@@ -334,8 +346,7 @@ export class InformesComponent implements OnInit {
                                 this.matDialog.open(ConfirmarComponent, {
                                     data: { value: documentDefinition }
                                 });
-                                //this.pdf1(documentDefinition);
-
+                                this.pdf1(documentDefinition);
                             }
                         }
                     }
@@ -350,13 +361,16 @@ export class InformesComponent implements OnInit {
             //this.img=this.sanity.bypassSecurityTrustUrl(objectURL);
             this.img = objectURL;
             this.imgs = blob.size;
+            this.iframe=true;
             //console.log(objectURL);
             //console.log(this.sanity.bypassSecurityTrustResourceUrl(this.img));
         });
 
     }
     imge() {
+        if(this.iframe==true){
         return this.sanity.bypassSecurityTrustResourceUrl(this.img);
+    }
     }
 
     //limpiar caja de observaciones
@@ -425,6 +439,8 @@ export class InformesComponent implements OnInit {
         )*/
         this.id = this.rutaActiva.snapshot.params.id;
         this.data = data[this.id];
+        this.documentDefinition3 = this.pdf.loadTemplate(this.data, this.ITImpre, this.ITHalla, this.ITAnte, null, this.tit, this.tec, this.profilePic, this.fecha, this.plantilla, this.medicoI);
+        this.pdf1(this.documentDefinition3);
         //this.evtselt2('Seleccione medico');
 
     }

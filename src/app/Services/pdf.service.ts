@@ -17,32 +17,37 @@ export class PdfService {
           { text: 'Informe Medico', bold: true, fontSize: 16, decoration: 'underline', alignment: 'center', margin: [0, 0, 0, 20] },
           {
             columns: [[
-              { text: 'Nombre: ', style: 'body' },
-              { text: 'Edad: ', style: 'body' },
+              { text: 'Nombre: ' + data.name, style: 'body' },
+              { text: 'Edad: ' + data.edad, style: 'body' },
               { text: ' ' },
-              { text: 'Fecha Examen: ', style: 'body' },
+              { text: 'Fecha Examen: ' + fecf, style: 'body' },
               { text: ' ' },
               { text: ' ' },
               { text: 'Título:', style: 'header' },
+              { text: tit, style: 'body' },
               { text: ' ' },
               { text: 'Examen realizado:', style: 'header' },
+              { text: ante, style: 'body' },
               { text: ' ' }
             ], [
-              { text: 'RUT: ' , style: 'body' },
-              { text: 'Contant No: ', style: 'body' },
+              { text: 'RUT: ' + data.rut, style: 'body' },
+              { text: 'Contant No: ' + data.phone, style: 'body' },
               { text: ' ' },
               { text: 'Fecha Informe: ' + this.f.getDate() + '/' + '0' + (1 + this.f.getUTCMonth()) + '/' + this.f.getFullYear(), style: 'body' },
               { text: ' ' },
               { text: ' ' },
               { text: 'Técnica:', style: 'header' },
+              { text: tec, style: 'body' },
               { text: ' ' }
             ]]
           }, {
             columns: [[
               { text: 'Hallazgos:', style: 'header' },
+              { text: halla, style: 'body' },
               { text: ' ' },
               { text: ' ' },
               { text: 'Impresión:', style: 'header' },
+              { text: impre, style: 'body' },
               { text: ' ' },
               { text: ' ' }]]
           }], styles: {
