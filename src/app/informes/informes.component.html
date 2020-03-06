@@ -101,7 +101,7 @@
                         <button id="ex" (click)="cleanh()">
                             <mat-icon>cancel</mat-icon>
                         </button>&nbsp;<br>
-                        <textarea id="a" [(ngModel)]='ITHalla' type="text" name="Hallazgos" value="{{ITHalla}}" (keydown)="evtselt5($event,'ha')" (keyup.enter)="evtselt6($event)">
+                        <textarea id="a" [(ngModel)]='ITHalla' type="text" name="Hallazgos" value="{{ITHalla}}" (keydown)="evtselt5($event,'ha')" (keyup.Space)="evtselt6($event)">
                         </textarea>
                         <br>
                         <mat-icon>textsms</mat-icon>&nbsp;<label>Impresión</label>&nbsp;

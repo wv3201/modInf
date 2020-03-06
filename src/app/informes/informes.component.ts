@@ -388,6 +388,10 @@ export class InformesComponent implements OnInit {
         this.ITHalla += this.InpuText;
         this.msg = '';
         this.InpuText = '';
+        this.documentDefinition3 = this.pdf.loadTemplate(this.data, this.ITImpre, this.ITHalla, this.ITAnte, this.medicos, this.tit, this.tec, this.profilePic, this.fecha, this.plantilla, this.medicoI);
+
+        this.pdf1(this.documentDefinition3);
+
     }
     //Añadir texto de observacion a impresion
     addI() {
@@ -397,6 +401,10 @@ export class InformesComponent implements OnInit {
         this.ITImpre += this.InpuText;
         this.msg = '';
         this.InpuText = '';
+        this.documentDefinition3 = this.pdf.loadTemplate(this.data, this.ITImpre, this.ITHalla, this.ITAnte, this.medicos, this.tit, this.tec, this.profilePic, this.fecha, this.plantilla, this.medicoI);
+
+        this.pdf1(this.documentDefinition3);
+
     }
     recordStart(): void {
         this.subscription = this.speech.message.subscribe(msg => {

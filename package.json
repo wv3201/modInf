@@ -9,7 +9,7 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "buils": "ng build --prod",
-    "run": " npm run buils && cd www && http-server -c-1 -p 4200"
+    "run": " npm run buils && cd dist && http-server -c-1 -p 4200"
   },
   "private": true,
   "dependencies": {
