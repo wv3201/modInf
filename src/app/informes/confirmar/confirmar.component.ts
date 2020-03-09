@@ -7,7 +7,6 @@ import { debounce, debounceTime } from 'rxjs/operators';
 import { DomSanitizer } from '@angular/platform-browser';
 import pdfMake from 'pdfmake/build/pdfmake';
 import pdfFonts from 'pdfmake/build/vfs_fonts';
-import { PdfService } from '../../Services/pdf.service';
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 @Component({

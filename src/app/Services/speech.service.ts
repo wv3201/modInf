@@ -13,18 +13,18 @@ class Message {
     message = '';
 }
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class SpeechService implements OnDestroy {
     recognition?: SpeechRecognition;
     message: Subject<Message> = new Subject();
-    command: Subject<{context: string, command: string}> = new Subject();
-    commands: {[context: string]: any} = {};
+    command: Subject<{ context: string, command: string }> = new Subject();
+    commands: { [context: string]: any } = {};
     context: BehaviorSubject<string> = new BehaviorSubject('');
     refreshGrammar: BehaviorSubject<boolean> = new BehaviorSubject(false);
     started: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
-    words$=new Subject<{[key:string]: string}>();
+    words$ = new Subject<{ [key: string]: string }>();
     private _destroyed = new Subject<void>();
 
     constructor(
@@ -44,18 +44,18 @@ export class SpeechService implements OnDestroy {
         this.recognition.maxAlternatives = 8;
         this.recognition.continuous = true;
         this.recognition.onresult = event => {
-            let message: Message = {message: ''};
+            let message: Message = { message: '' };
             let word = '';
             if (event.results) {
                 const result = event.results[event.resultIndex];
                 console.log("3")
                 if (result.isFinal) {
                     if (result[0].confidence < 0.3) {
-                        message = {error: true, message: 'Cannot recognize'};
+                        message = { error: true, message: 'Cannot recognize' };
                     } else {
                         console.log("4");
                         word = result[0].transcript.trim().toLowerCase();
-                        message = {success: true, message: word};
+                        message = { success: true, message: word };
                     }
                 }
             }
@@ -70,12 +70,12 @@ export class SpeechService implements OnDestroy {
                     } else {
                         const isCommand = this.commands[this.context.value] && this.commands[this.context.value][word];
                         if (isCommand) {
-                            this.command.next({context: this.context.value, command: word});
+                            this.command.next({ context: this.context.value, command: word });
                         } else {
                             // try to match a global context command
                             const isGlobalCommand = this.commands[''] && this.commands[''][word];
                             if (isGlobalCommand) {
-                                this.command.next({context: '', command: word});
+                                this.command.next({ context: '', command: word });
                             }
                         }
                     }

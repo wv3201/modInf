@@ -2,8 +2,8 @@
   {
     "id": 1,
     "name": "Leanne Graham",
-    "edad":"54 Años",
-    "rut":"3.453.123-3",
+    "edad": "54 Años",
+    "rut": "3.453.123-3",
     "email": "Sincere@april.biz",
     "address": {
       "street": "Kulas Light",
@@ -26,8 +26,8 @@
   {
     "id": 2,
     "name": "Ervin Howell",
-    "edad":"21 Años",
-    "rut":"18.410.345-2",
+    "edad": "21 Años",
+    "rut": "18.410.345-2",
     "email": "Shanna@melissa.tv",
     "address": {
       "street": "Victor Plains",
@@ -50,8 +50,8 @@
   {
     "id": 3,
     "name": "Clementine Bauch",
-    "edad":"25 Años",
-    "rut":"17.413.525-7",
+    "edad": "25 Años",
+    "rut": "17.413.525-7",
     "email": "Nathan@yesenia.net",
     "address": {
       "street": "Douglas Extension",
@@ -74,8 +74,8 @@
   {
     "id": 4,
     "name": "Patricia Lebsack",
-    "edad":"28 Años",
-    "rut":"16.626.731-3",
+    "edad": "28 Años",
+    "rut": "16.626.731-3",
     "email": "Julianne.OConner@kory.org",
     "address": {
       "street": "Hoeger Mall",
@@ -98,8 +98,8 @@
   {
     "id": 5,
     "name": "Chelsey Dietrich",
-    "edad":"48 Años",
-    "rut":"12.312.645-6",
+    "edad": "48 Años",
+    "rut": "12.312.645-6",
     "email": "Lucio_Hettinger@annie.ca",
     "address": {
       "street": "Skiles Walks",
@@ -122,8 +122,8 @@
   {
     "id": 6,
     "name": "Mrs. Dennis Schulist",
-    "edad":"50 Años",
-    "rut":"11.343.989-2",
+    "edad": "50 Años",
+    "rut": "11.343.989-2",
     "email": "Karley_Dach@jasper.info",
     "address": {
       "street": "Norberto Crossing",
@@ -146,8 +146,8 @@
   {
     "id": 7,
     "name": "Kurtis Weissnat",
-    "edad":"54 Años",
-    "rut":"10.789.520-7",
+    "edad": "54 Años",
+    "rut": "10.789.520-7",
     "email": "Telly.Hoeger@billy.biz",
     "address": {
       "street": "Rex Trail",
@@ -170,8 +170,8 @@
   {
     "id": 8,
     "name": "Nicholas Runolfsdottir V",
-    "edad":"34 Años",
-    "rut":"15.127.432-2",
+    "edad": "34 Años",
+    "rut": "15.127.432-2",
     "email": "Sherwood@rosamond.me",
     "address": {
       "street": "Ellsworth Summit",
@@ -194,8 +194,8 @@
   {
     "id": 9,
     "name": "Glenna Reichert",
-    "edad":"74 Años",
-    "rut":"3.127.432-2",
+    "edad": "74 Años",
+    "rut": "3.127.432-2",
     "email": "Chaim_McDermott@dana.io",
     "address": {
       "street": "Dayna Park",
@@ -218,8 +218,8 @@
   {
     "id": 10,
     "name": "Clementina DuBuque",
-    "edad":"56 Años",
-    "rut":"9.271.342-5",
+    "edad": "56 Años",
+    "rut": "9.271.342-5",
     "email": "Rey.Padberg@karina.biz",
     "address": {
       "street": "Kattie Turnpike",

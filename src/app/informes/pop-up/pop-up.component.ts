@@ -1,10 +1,8 @@
-import { Component, OnInit, ViewChild, Input, ViewChildren, Optional, Inject } from '@angular/core';
-import { Subscription, Subject } from 'rxjs';
+import { Component, OnInit, Optional, Inject } from '@angular/core';
+import { Subject } from 'rxjs';
 import { SpeechService } from '../../Services/speech.service';
-import { takeUntil } from 'rxjs/operators';
 import { HttpServiceService } from '../../Services/http-service.service';
-import { MatDialog, MatDialogConfig, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { InformesComponent } from '../informes.component';
+import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 
 @Component({

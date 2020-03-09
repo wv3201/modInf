@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { HttpServiceService } from '../Services/http-service.service';
 import { ActivatedRoute } from '@angular/router';
 import data from '../../assets/json/Usuarios.json';
-import { HttpHeaders, HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-home',

@@ -3,40 +3,43 @@
       "id": "1",
       "Nombre": "examen",
       "idPaciente": "1",
-      "usuario":"2",
+      "usuario": "2",
       "plantilla": "Dr Claudio Parra Moya",
-      "fechaE":"16-02-2020",
-      "fechaI":"24-02-2020",
+      "fechaE": "16-02-2020",
+      "fechaI": "24-02-2020",
       "Hallazgos": "Esto es un ejemplo    Esto es un texto de ejemplo   Esto es un texto de ejemplo   Esto es un texto de ejemplo   Esto es un texto de ejemplo   Esto es un texto de ejemplo   Esto es un texto de ejemplo",
       "Impresión": "Esto es un texto de ejemplo"
-   },{
+   },
+   {
       "id": "2",
       "Nombre": "examen",
       "idPaciente": "2",
-      "usuario":"2",
+      "usuario": "2",
       "plantilla": "Dr Andrés Retamal Caro",
-      "fechaE":"26-02-2020",
-      "fechaI":"27-02-2020",
+      "fechaE": "26-02-2020",
+      "fechaI": "27-02-2020",
       "Hallazgos": "Esto es un ejemplo    Esto es un texto de ejemplo   Esto es un texto de ejemplo   Esto es un texto de ejemplo   Esto es un texto de ejemplo   Esto es un texto de ejemplo   Esto es un texto de ejemplo",
       "Impresión": "Esto es un texto de ejemplo"
-   },{
+   },
+   {
       "id": "3",
       "Nombre": "examen",
       "idPaciente": "3",
-      "usuario":"6",
+      "usuario": "6",
       "plantilla": "Eco Abdominal normal",
-      "fechaE":"26-02-2020",
-      "fechaI":"27-02-2020",
+      "fechaE": "26-02-2020",
+      "fechaI": "27-02-2020",
       "Hallazgos": "Esto es un ejemplo    Esto es un texto de ejemplo   Esto es un texto de ejemplo   Esto es un texto de ejemplo   Esto es un texto de ejemplo   Esto es un texto de ejemplo   Esto es un texto de ejemplo",
       "Impresión": "Esto es un texto de ejemplo"
-   },{
+   },
+   {
       "id": "4",
       "Nombre": "examen",
       "idPaciente": "1",
-      "usuario":"2",
+      "usuario": "2",
       "plantilla": "Dr Alexis Montilla",
-      "fechaE":"20-02-2020",
-      "fechaI":"25-02-2020",
+      "fechaE": "20-02-2020",
+      "fechaI": "25-02-2020",
       "Hallazgos": "Esto es un ejemplo    Esto es un texto de ejemplo   Esto es un texto de ejemplo   Esto es un texto de ejemplo   Esto es un texto de ejemplo   Esto es un texto de ejemplo   Esto es un texto de ejemplo",
       "Impresión": "Esto es un texto de ejemplo"
    }

@@ -29,7 +29,7 @@ pdfMake.vfs = pdfFonts.pdfMake.vfs;
     styleUrls: ['./informes.component.scss']
 })
 export class InformesComponent implements OnInit {
-    clase:string="white";
+    clase: string = "white";
     profilePic = [];
     documentDefinition;
     bd: any = listaExam;
@@ -64,22 +64,16 @@ export class InformesComponent implements OnInit {
     imgs: any;
     as: any[];
     fecha: any;
-    documentDefinition3:any;
-    iframe:boolean;
+    documentDefinition3: any;
+    iframe: boolean;
 
     constructor(sanity: DomSanitizer, private http: HttpClient, public speech: SpeechService, private Service: HttpServiceService, private pdf: PdfService, private matDialog: MatDialog, public forms: FormsModule, private rutaActiva: ActivatedRoute, private infor: InformesService) {
-        //this.loadData();
         this.loadS();
         this.sanity = sanity;
     }
     ngOnInit(): void {
         this.loadData();
-        this.iframe=false;
-        /*setInterval(()=>{
-            //this.imge();
-            this.pdf1(this.documentDefinition3);
-        },1000);*/
-        
+        this.iframe = false;
         this.user = users;
         this.speech.init();
         this.speech.stop();
@@ -93,7 +87,7 @@ export class InformesComponent implements OnInit {
             takeUntil(this._destroyed)
         ).subscribe(started => this.started = started);
     }
-   
+
     //evento al elegir plantilla se cargue tecnica, titulo, y examen realizado
     evtselt(plan: any) {
         var c;
@@ -142,7 +136,7 @@ export class InformesComponent implements OnInit {
                 this.profilePic[0] = 'data:image/jpg;base64,' + base64data;
                 this.pdf1(this.pdf.loadTemplate(this.data, this.ITImpre, this.ITHalla, this.ITAnte, this.medicos, this.tit, this.tec, this.profilePic, this.fecha, this.us[0], this.medicoI));
             });
-            this.iframe=true;
+            this.iframe = true;
         }
     }
     //cargar firma medico informante
@@ -166,9 +160,6 @@ export class InformesComponent implements OnInit {
                 this.pdf1(this.pdf.loadTemplate(this.data, this.ITImpre, this.ITHalla, this.ITAnte, this.medicos, this.tit, this.tec, this.profilePic, this.fecha, this.plantilla, this.medicoI));
             });
         }
-        
-
-
     }
     evtselt4(fecha) {
         this.as = fecha.split("-");
@@ -176,38 +167,41 @@ export class InformesComponent implements OnInit {
         this.documentDefinition3 = this.pdf.loadTemplate(this.data, this.ITImpre, this.ITHalla, this.ITAnte, this.medicos, this.tit, this.tec, this.profilePic, this.fecha, this.plantilla, this.medicoI);
         this.pdf1(this.documentDefinition3);
     }
-    evtselt5(event,tipo) {
+    evtselt5(event, tipo) {
         switch (tipo) {
             case 'ti':
-                this.tit=event.target.value;
+                this.tit = event.target.value;
                 break;
             case 'ex':
-                this.ITAnte=event.target.value;
+                this.ITAnte = event.target.value;
                 break;
             case 'te':
-                this.tec=event.target.value;
+                this.tec = event.target.value;
                 break;
             case 'ha':
-                this.ITHalla=event.target.value;
+                this.ITHalla = event.target.value;
                 break;
             case 'im':
-                this.ITImpre=event.target.value;
+                this.ITImpre = event.target.value;
                 break;
             default:
                 console.log("error");
                 break;
         }
         this.documentDefinition3 = this.pdf.loadTemplate(this.data, this.ITImpre, this.ITHalla, this.ITAnte, this.medicos, this.tit, this.tec, this.profilePic, this.fecha, this.plantilla, this.medicoI);
-        
+
     }
-    evtselt6(event){
+
+    evtselt6(event) {
         this.pdf1(this.documentDefinition3);
     }
-    onKeydown(event){
-        if(event.key === "." || event.key === ","){
+
+    onKeydown(event) {
+        if (event.key === "." || event.key === ",") {
             this.pdf1(this.documentDefinition3);
         }
     }
+
     //obtener base64 de la url de una imagen
     getBase64ImageFromURL(url: string) {
         return Observable.create((observer: Observer<string>) => {
@@ -228,25 +222,27 @@ export class InformesComponent implements OnInit {
             }
         });
     }
-    getBase64ImageFromURL2(url: string) {
-        return Observable.create((observer: Observer<string>) => {
-            let img = new Image();
-            img.crossOrigin = 'Anonymous';
-            img.src = url; img.src = url;
-            if (!img.complete) {
-                img.onload = () => {
+    /*
+        getBase64ImageFromURL2(url: string) {
+            return Observable.create((observer: Observer<string>) => {
+                let img = new Image();
+                img.crossOrigin = 'Anonymous';
+                img.src = url; img.src = url;
+                if (!img.complete) {
+                    img.onload = () => {
+                        observer.next(this.getBase64Image(img));
+                        observer.complete();
+                    };
+                    img.onerror = (err) => {
+                        observer.error(err);
+                    };
+                } else {
                     observer.next(this.getBase64Image(img));
                     observer.complete();
-                };
-                img.onerror = (err) => {
-                    observer.error(err);
-                };
-            } else {
-                observer.next(this.getBase64Image(img));
-                observer.complete();
-            }
-        });
-    }
+                }
+            });
+        }
+    */
     //transformar Img a base64
     getBase64Image(img: HTMLImageElement) {
         var canvas = document.createElement("canvas");
@@ -258,25 +254,27 @@ export class InformesComponent implements OnInit {
         //console.log(dataURL);
         return dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
     }
-    //metodo para transformar imagenes
-    toDataUrl(urlss, callback) {
-        var vara;
-        const xhr = new XMLHttpRequest();
-        xhr.onload = function () {
-            const reader = new FileReader();
-            reader.onloadend = function () {
-                callback(reader.result);
-                vara = reader.result as string;
+    /*
+        //metodo para transformar imagenes
+        toDataUrl(urlss, callback) {
+            var vara;
+            const xhr = new XMLHttpRequest();
+            xhr.onload = function () {
+                const reader = new FileReader();
+                reader.onloadend = function () {
+                    callback(reader.result);
+                    vara = reader.result as string;
+    
+                }
+                reader.readAsDataURL(xhr.response);
+            };
+            console.log(vara)
+            xhr.open('GET', urlss);
+            xhr.responseType = 'blob';
+            xhr.send();
+            console.log(xhr);
+        }*/
 
-            }
-            reader.readAsDataURL(xhr.response);
-        };
-        console.log(vara)
-        xhr.open('GET', urlss);
-        xhr.responseType = 'blob';
-        xhr.send();
-        console.log(xhr);
-    }
     //cargar segundo select medicos
     loadS() {
         for (let is = 0; is < meidicos.length; is++) {
@@ -286,6 +284,7 @@ export class InformesComponent implements OnInit {
             if (is != 2) { this.a++; }
         }
     }
+
     //metodo de traduccion de palabras a simbolos
     transcod(str) {
         console.log('//msg=' + str.message);
@@ -294,11 +293,13 @@ export class InformesComponent implements OnInit {
         console.log(this.InpuText);
         return this.InpuText;
     }
+
     ngOnDestroy(): void {
         this._destroyed.next();
         this._destroyed.complete();
         this.subscription.unsubscribe();
     }
+
     //metodo para mostrar en pantalla un examen anterior
     verExamen(exam) {
         for (let i = 0; i < users.length; i++) {
@@ -315,6 +316,7 @@ export class InformesComponent implements OnInit {
             }
         }
     }
+
     toggleVoiceRecognition(): void {
         if (this.started) {
             this.speech.stop();
@@ -322,11 +324,11 @@ export class InformesComponent implements OnInit {
             this.speech.start();
         }
     }
-    cambiarModo(){
-        if(this.clase=="white"){
-        this.clase="black";
-        }else{
-            this.clase="white";
+    cambiarModo() {
+        if (this.clase == "white") {
+            this.clase = "black";
+        } else {
+            this.clase = "white";
         }
     }
     //metodo para generar informe en pdf
@@ -364,16 +366,13 @@ export class InformesComponent implements OnInit {
             //this.img=this.sanity.bypassSecurityTrustUrl(objectURL);
             this.img = objectURL;
             this.imgs = blob.size;
-            this.iframe=true;
+            this.iframe = true;
             //console.log(objectURL);
             //console.log(this.sanity.bypassSecurityTrustResourceUrl(this.img));
         });
-
     }
     imge() {
-        if(this.iframe==true){
-        this.img= this.sanity.bypassSecurityTrustResourceUrl(this.img);
-    }
+        this.img = this.sanity.bypassSecurityTrustResourceUrl(this.img);
     }
 
     //limpiar caja de observaciones
@@ -406,7 +405,6 @@ export class InformesComponent implements OnInit {
         this.msg = '';
         this.InpuText = '';
         this.documentDefinition3 = this.pdf.loadTemplate(this.data, this.ITImpre, this.ITHalla, this.ITAnte, this.medicos, this.tit, this.tec, this.profilePic, this.fecha, this.plantilla, this.medicoI);
-
         this.pdf1(this.documentDefinition3);
 
     }
@@ -419,7 +417,6 @@ export class InformesComponent implements OnInit {
         this.msg = '';
         this.InpuText = '';
         this.documentDefinition3 = this.pdf.loadTemplate(this.data, this.ITImpre, this.ITHalla, this.ITAnte, this.medicos, this.tit, this.tec, this.profilePic, this.fecha, this.plantilla, this.medicoI);
-
         this.pdf1(this.documentDefinition3);
 
     }
@@ -453,23 +450,12 @@ export class InformesComponent implements OnInit {
         });
     }
     //elegir firma medico
-    fileChanged(e) {
+    /*fileChanged(e) {
         const file = e.target.files[0];
         this.getBase64(file);
-    }
-    fileChanged2(e) {
-        const file = e.target.files[0];
-        this.getBase642(file);
-    }
-    //quitar firma medico
-    cleanf() {
-        this.profilePic[0] = null;
-    }
-    cleanfi() {
-        this.profilePic[1] = null;
-    }
+    }*/
     //transformar imagen en base 64 para ser mostrada en el informe
-    getBase64(file) {
+    /*getBase64(file) {
         const reader = new FileReader();
         reader.readAsDataURL(file);
         reader.onload = () => {
@@ -479,27 +465,5 @@ export class InformesComponent implements OnInit {
         reader.onerror = (error) => {
             console.log('Error: ', error);
         };
-    }
-    getBase642(file) {
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = () => {
-            console.log(reader.result);
-            this.profilePic[1] = reader.result as string;
-        };
-        reader.onerror = (error) => {
-            console.log('Error: ', error);
-        };
-    }
-    getBase643(file) {
-        const reader = new FileReader();
-        reader.readAsBinaryString(file);
-        reader.onload = () => {
-            console.log(reader.result);
-            this.profilePic[1] = reader.result as string;
-        };
-        reader.onerror = (error) => {
-            console.log('Error: ', error);
-        };
-    }
+    }*/
 } 

@@ -2,9 +2,9 @@
      {
           "id": "0",
           "Nombre": "Seleccione medico",
-          "DR":"",
-          "Oficio":"",
-          "RUT":"",
+          "DR": "",
+          "Oficio": "",
+          "RUT": "",
           "plantillas": [
                {
                     "nombre": "sin plantillas",
@@ -24,9 +24,9 @@
      {
           "id": "1",
           "Nombre": "AGuerman",
-          "DR":"",
-          "Oficio":"",
-          "RUT":"",
+          "DR": "",
+          "Oficio": "",
+          "RUT": "",
           "plantillas": [
                {
                     "nombre": "Seleccione Plantilla",
@@ -107,7 +107,7 @@
                     "DR": "Dr. Julio Guiñez Deocares",
                     "Oficio": "Médico Radiólogo",
                     "RUT": "8.976.025-9",
-                    "Firma":"https://upload.wikimedia.org/wikipedia/commons/1/17/Giovanni_Verga_firma.png",
+                    "Firma": "https://upload.wikimedia.org/wikipedia/commons/1/17/Giovanni_Verga_firma.png",
                     "examen": "Ecotomografía",
                     "titulo": "Ecotomografía",
                     "tecnica": "Se realiza examen con transductor multifrecuencia"
@@ -117,7 +117,7 @@
                     "DR": "Dr. Pedro de Diego",
                     "Oficio": "Médico Neuroradiólogo",
                     "RUT": "8.038.612-0",
-                    "Firma":"https://www.pngitem.com/pimgs/m/27-277042_firma-de-jose-fernandez-hd-png-download.png",
+                    "Firma": "https://www.pngitem.com/pimgs/m/27-277042_firma-de-jose-fernandez-hd-png-download.png",
                     "examen": "Ecotomografía",
                     "titulo": "Ecotomografía",
                     "tecnica": "Se realiza examen con transductor multifrecuencia."
@@ -126,7 +126,7 @@
                     "nombre": "Mamografia",
                     "examen": "Radiografia",
                     "titulo": "Mamografia",
-                    "Firma":"",
+                    "Firma": "",
                     "tecnica": "Sin tecnica definida"
                },
                {
@@ -134,7 +134,7 @@
                     "DR": "Dr. Paulo Fuentes",
                     "Oficio": "Médico Radiólogo",
                     "RUT": "",
-                    "Firma":"https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/Firma_Ricardo_Favre.png/799px-Firma_Ricardo_Favre.png",
+                    "Firma": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/Firma_Ricardo_Favre.png/799px-Firma_Ricardo_Favre.png",
                     "examen": "TC Cerebro Sin y Con Contraste",
                     "titulo": "Tomografia Axial Computarizada (TAC)",
                     "tecnica": "Examen realizado con adquisición volumétrica en equipo multicorte, sin uso de contraste yodado endovenoso."
@@ -142,7 +142,7 @@
                {
                     "nombre": "Rx",
                     "DR": "Dr.",
-                    "Firma":"https://upload.wikimedia.org/wikipedia/commons/f/f3/Firma_de_Guillermo_Silveira._01.png",
+                    "Firma": "https://upload.wikimedia.org/wikipedia/commons/f/f3/Firma_de_Guillermo_Silveira._01.png",
                     "examen": "Radiografia",
                     "titulo": "Examenes Radiologicos simples",
                     "tecnica": "Se realizan radiografias digitales de"
@@ -152,7 +152,7 @@
                     "DR": "Dr. Paulo Granata Sasson",
                     "Oficio": "Médico Radiólogo",
                     "RUT": "",
-                    "Firma":"https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/FIRMA_DE_EDUARDO_MORILLAS_%28PINTOR%29.png/800px-FIRMA_DE_EDUARDO_MORILLAS_%28PINTOR%29.png",
+                    "Firma": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/FIRMA_DE_EDUARDO_MORILLAS_%28PINTOR%29.png/800px-FIRMA_DE_EDUARDO_MORILLAS_%28PINTOR%29.png",
                     "examen": "TC Cerebro Sin y Con Contraste",
                     "titulo": "Tomografia Axial Computarizada (TAC)",
                     "tecnica": "Examen realizado con adquisición volumétrica en equipo multicorte, sin uso de contraste yodado endovenoso."
