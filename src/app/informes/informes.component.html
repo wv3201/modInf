@@ -1,6 +1,7 @@
-<div class="table">
+<body [class]="clase"><div class="table">
     <div class="row">
         <div class="cell1">
+            <button type="button" class="btn btn-dark" (click)=cambiarModo()>Oscuro / Claro</button>
             <div id="center">
                 <h5>Datos</h5>
                 <hr><br>
@@ -20,7 +21,6 @@
                     <button (click)=abrirModal()>
                         <mat-icon>collections</mat-icon>
                     </button>
-                    <button type="button" class="btn btn-dark" onclick="cambiarModo()">Oscuro / Claro</button>
 
                 </div>
                 <div id="ex">
@@ -121,8 +121,30 @@
         </div>
         <div class="cell3"><br>
             <div id="center">
-                <div id=pdf>
-                    <iframe *ngIf="iframe" id="plugin" type="application/pdf" [src]="imge()"
+                <div id="ex" class="top">
+                    <b>Informes previos</b><Br>
+                    <tr *ngFor="let exam of bd" (click)="verExamen(exam)">
+                        <ng-container *ngIf="exam.idPaciente == data.id">
+                            <td>{{exam.Nombre}}</td>
+                        </ng-container>
+                    </tr>
+                    <br>
+                </div>
+                <div class="mid">
+                    
+                </div>
+                <div id=pdf class="bot">
+                    <h5>Historial Medico</h5>
+                    <hr><br>
+                    <b>Dicom</b><br>
+                    <!--<img src="../../../images/mirror.png" class="mirror-icon pointer">-->
+                    <button (click)=abrirModal()>
+                        <mat-icon>collections</mat-icon>
+                    </button>
+                    <br>
+                    <button (click)="imge()">Previsualizar</button>
+                    <br>
+                    <iframe *ngIf="iframe" id="plugin" type="application/pdf" [src]="img"
                         stream-url="chrome-extension://mhjfbmdgcfjbbpaeojofohoefgiehjai/9998104a-f5f8-43cf-b25c-0a193ae75822"
                         headers="Content-Length: 11570 Content-Type: application/pdf" background-color="0xFF525659"
                         top-toolbar-height="36" javascript="allow" full-frame=""></iframe>
@@ -131,3 +153,4 @@
         </div>
     </div>
 </div>
+</body>

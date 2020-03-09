@@ -29,7 +29,7 @@ pdfMake.vfs = pdfFonts.pdfMake.vfs;
     styleUrls: ['./informes.component.scss']
 })
 export class InformesComponent implements OnInit {
-
+    clase:string="white";
     profilePic = [];
     documentDefinition;
     bd: any = listaExam;
@@ -323,8 +323,11 @@ export class InformesComponent implements OnInit {
         }
     }
     cambiarModo(){
-        var cuerpoweb= document.body;
-        cuerpoweb.classList.toggle("oscuro");
+        if(this.clase=="white"){
+        this.clase="black";
+        }else{
+            this.clase="white";
+        }
     }
     //metodo para generar informe en pdf
     generatePdf(med, tit, tec, fecf: string, plant, me) {
@@ -369,7 +372,7 @@ export class InformesComponent implements OnInit {
     }
     imge() {
         if(this.iframe==true){
-        return this.sanity.bypassSecurityTrustResourceUrl(this.img);
+        this.img= this.sanity.bypassSecurityTrustResourceUrl(this.img);
     }
     }
 

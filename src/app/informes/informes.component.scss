@@ -6,15 +6,54 @@ div.table {
   border-collapse: collapse;
   //border: 1px solid red;
 }
-.oscuro{
-  background-color: #1f1f1f;
-  color:#f1eded;
+body {
+  transition: 0.4s;
+  background: #eeeeee;
+  color: black;
+  width: auto;
+  height: auto;
 }
+.black {
+  background: #212121;
+  color: rgba(163, 163, 162, 0.822);
+  button {
+    color:rgba(163, 163, 162, 0.822);
+    background: #212121;
+  }
+  input{
+    color:rgba(163, 163, 162);
+    background: #212121;
+  }
+  select {color:rgba(163, 163, 162);
+    background: #212121;}
+  option {color:rgb(163, 163, 162);
+    background: #212121;}
+  textarea{color:rgba(163, 163, 162);
+    background: #212121;}
+}
+.white {
+  background: #fff;
+  color: #000;
+}
+
+
 div.row {
   display: table-row;
 }
 #center {
   margin: 5%;
+}
+.top {
+  position: relative;
+  top: 5px;
+  left: 10px;
+}
+.mid {
+  height: 50% !important;
+}
+.bot {
+  bottom: 5px;
+  right: 10px;
 }
 div.cell1 {
   display: table-cell;
@@ -88,7 +127,7 @@ div.colspan > div > div {
 }
 #plugin {
   width: 610px;
-  height: 800px;
+  height: 400px;
 }
 #btn {
   margin-left: 48%;
