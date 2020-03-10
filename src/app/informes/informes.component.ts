@@ -28,7 +28,7 @@ pdfMake.vfs = pdfFonts.pdfMake.vfs;
     templateUrl: './informes.component.html',
     styleUrls: ['./informes.component.scss']
 })
-export class InformesComponent implements OnInit,AfterViewInit {
+export class InformesComponent implements OnInit, AfterViewInit {
     clase: string = "white";
     profilePic = [];
     documentDefinition;
@@ -66,9 +66,9 @@ export class InformesComponent implements OnInit,AfterViewInit {
     fecha: any;
     documentDefinition3: any;
     iframe: boolean;
-    ab:any='si';
-    estado:boolean=false;
-    temp='';
+    ab: any = 'si';
+    estado: boolean = false;
+    temp = '';
     showSearchButton2: boolean;
     constructor(sanity: DomSanitizer, private http: HttpClient, public speechRecognitionService: SpeechService, private Service: HttpServiceService, private pdf: PdfService, private matDialog: MatDialog, public forms: FormsModule, private rutaActiva: ActivatedRoute, private infor: InformesService) {
         this.loadS();
@@ -78,22 +78,22 @@ export class InformesComponent implements OnInit,AfterViewInit {
         this.loadData();
         this.iframe = false;
         this.user = users;
-        this.showSearchButton2=true;
+        this.showSearchButton2 = true;
     }
-        title = "Angular Router Demo";
-        shortcuts: ShortcutInput[] = [];
-        shortcuts2: ShortcutInput[] = [];
-        ngAfterViewInit() {
-            this.shortcuts2.push(
-                {
-                  key:["cmd + shift"],
-                  label: "Voz",
-                  description: "Voz",
-                  command: e => this.Estado(),
-                  preventDefault:true
-                }
-              );
-        }
+    title = "Angular Router Demo";
+    shortcuts: ShortcutInput[] = [];
+    shortcuts2: ShortcutInput[] = [];
+    ngAfterViewInit() {
+        this.shortcuts2.push(
+            {
+                key: ["cmd + shift"],
+                label: "Voz",
+                description: "Voz",
+                command: e => this.Estado(),
+                preventDefault: true
+            }
+        );
+    }
 
     //evento al elegir plantilla se cargue tecnica, titulo, y examen realizado
     evtselt(plan: any) {
@@ -271,30 +271,30 @@ export class InformesComponent implements OnInit,AfterViewInit {
     }
 
     //metodo de traduccion de palabras a simbolos
-    transcod(str) {
+    /*transcod(str) {
         console.log('//msg=' + str.message);
         this.mss = str.message.replace(' punto y aparte', '.\n ^').replace(' dos puntos', ':').replace(' punto p', '.').replace(' comas', ',').replace('aparte', '\n ').replace('a parte', '\n ').replace('comillas ', '"').replace(' comilla ', '"');
         this.InpuText += this.mss[0].toLocaleUpperCase() + this.mss.substring(1);
         console.log(this.InpuText);
         return this.InpuText;
     }
-
+    */
     //metodo para mostrar en pantalla un examen anterior
-    verExamen(exam) {
-        for (let i = 0; i < users.length; i++) {
-            if (exam.usuario == users[i].id) {
-                this.media = users[i].Nombre;
-                for (let j = 0; j < users[i].plantillas.length; j++) {
-                    if (exam.plantilla == users[i].plantillas[j].nombre) {
-                        const documentDefinition2 = this.infor.loadTemplate2(this.data, exam.Impresión, exam.Hallazgos, users[i].plantillas[j].examen, users[i], users[i].plantillas[j].titulo, users[i].plantillas[j].tecnica, '', exam.fechaE, users[i].plantillas[j], exam.fechaI);
-                        this.matDialog.open(ConfirmarComponent, {
-                            data: { value: documentDefinition2 }
-                        });
-                    }
-                }
-            }
-        }
-    }
+    /*  verExamen(exam) {
+          for (let i = 0; i < users.length; i++) {
+              if (exam.usuario == users[i].id) {
+                  this.media = users[i].Nombre;
+                  for (let j = 0; j < users[i].plantillas.length; j++) {
+                      if (exam.plantilla == users[i].plantillas[j].nombre) {
+                          const documentDefinition2 = this.infor.loadTemplate2(this.data, exam.Impresión, exam.Hallazgos, users[i].plantillas[j].examen, users[i], users[i].plantillas[j].titulo, users[i].plantillas[j].tecnica, '', exam.fechaE, users[i].plantillas[j], exam.fechaI);
+                          this.matDialog.open(ConfirmarComponent, {
+                              data: { value: documentDefinition2 }
+                          });
+                      }
+                  }
+              }
+          }
+      }*/
     cambiarModo() {
         if (this.clase == "white") {
             this.clase = "black";
@@ -376,7 +376,7 @@ export class InformesComponent implements OnInit,AfterViewInit {
         this.msg = '';
         this.InpuText = '';
         this.documentDefinition3 = this.pdf.loadTemplate(this.data, this.ITImpre, this.ITHalla, this.ITAnte, this.medicos, this.tit, this.tec, this.profilePic, this.fecha, this.plantilla, this.medicoI);
-        this.pdf1(this.documentDefinition3);
+        //this.pdf1(this.documentDefinition3);
 
     }
     //Añadir texto de observacion a impresion
@@ -388,7 +388,7 @@ export class InformesComponent implements OnInit,AfterViewInit {
         this.msg = '';
         this.InpuText = '';
         this.documentDefinition3 = this.pdf.loadTemplate(this.data, this.ITImpre, this.ITHalla, this.ITAnte, this.medicos, this.tit, this.tec, this.profilePic, this.fecha, this.plantilla, this.medicoI);
-        this.pdf1(this.documentDefinition3);
+        //this.pdf1(this.documentDefinition3);
 
     }
     //cargar lista de medicos
@@ -412,53 +412,56 @@ export class InformesComponent implements OnInit,AfterViewInit {
             data: { value: this.rutaActiva.snapshot.params.id }
         });
     }
-    Estado(){
-        if(!this.estado){
-            this.started=true;
-              this.activateSpeechSearchMovie2('si')
-            }else{
-                this.started=false;
-              this.Stop();
-            }
-      }
-      Stop(){
-        this.ab='no'
+    Estado() {
+        this.msg = "";
+        if (!this.estado) {
+            this.started = true;
+            this.activateSpeechSearchMovie2('si')
+        } else {
+            this.started = false;
+            this.Stop();
+        }
+    }
+    Stop() {
+        this.ab = 'no'
         this.speechRecognitionService.DestroySpeechObject();
-        this.estado=false;
-      }
-      activateSpeechSearchMovie2(e): void {
-        this.ab=e;
-        this.estado=true;
+        this.estado = false;
+    }
+    activateSpeechSearchMovie2(e): void {
+        this.ab = e;
+        this.estado = true;
         //this.showSearchButton2 = false;
         //this.speechRecognitionService.record()
         this.speechRecognitionService.show()
-        .subscribe(
-            //listener
-            (value) => {
-                this.temp =value+' ';
-                
-                console.log(value);
-            },
-            //errror
-            (err) => {
-                console.log(err);
-                if (err.error == "no-speech") {
-                    console.log("--restatring service--");
-                    this.temp='';
-                    this.activateSpeechSearchMovie2(e);
-                }
-            },
-            //completion
-            () => {
-                this.showSearchButton2 = true;
-                console.log("--complete--");
-                //this.msg+=' '+this.temp;
-                this.msg+=this.temp;
-                this.temp='';
-                if(this.ab!='no'){
-                  this.activateSpeechSearchMovie2(e);
-                }
-            });
+            .subscribe(
+                //listener
+                (value) => {
+                    this.temp = value + ' ';
+
+                    console.log(value);
+                },
+                //errror
+                (err) => {
+                    console.log(err);
+                    if (err.error == "no-speech") {
+                        console.log("--restatring service--");
+                        this.temp = '';
+                        this.activateSpeechSearchMovie2(e);
+                    }
+                },
+                //completion
+                () => {
+                    this.showSearchButton2 = true;
+                    console.log("--complete--");
+                    //this.msg+=' '+this.temp;
+                    this.msg += this.temp;
+                    this.temp = '';
+                    if (this.ab != 'no') {
+                        this.activateSpeechSearchMovie2(e);
+                    }
+                    this.InpuText += this.msg;
+
+                });
     }
 
     //elegir firma medico

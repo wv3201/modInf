@@ -65,10 +65,10 @@ export class SpeechService {
           const { webkitSpeechRecognition }: IWindow = <IWindow><unknown>window;
           this.speechRecognition = new webkitSpeechRecognition();
           //this.speechRecognition = SpeechRecognition;
-          this.speechRecognition.continuous = false;
+          this.speechRecognition.continuous = true;
           this.speechRecognition.interimResults = true;
           this.speechRecognition.lang = 'es-mx';
-          this.speechRecognition.maxAlternatives = 2;
+          this.speechRecognition.maxAlternatives = 8;
           this.speechRecognition.onresult = speech => {
             console.log(_.trim(speech.results[speech.resultIndex][0].transcript))
           this.msg=_.trim(speech.results[speech.resultIndex][0].transcript);
@@ -94,7 +94,7 @@ export class SpeechService {
           const { webkitSpeechRecognition }: IWindow = <IWindow><unknown>window;
           this.speechRecognition = new webkitSpeechRecognition();
           //this.speechRecognition = SpeechRecognition;
-          this.speechRecognition.continuous = false;
+          this.speechRecognition.continuous = true;
           this.speechRecognition.interimResults = true;
           this.speechRecognition.lang = 'es-mx';
           this.speechRecognition.maxAlternatives = 8;
