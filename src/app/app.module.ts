@@ -7,7 +7,6 @@ import { InformesComponent } from './informes/informes.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatIconModule, MatIcon } from '@angular/material/icon';
 import { HttpClientModule } from '@angular/common/http';
-import { SpeechModule } from '../app/Services/module';
 import { PopUpComponent } from './informes/pop-up/pop-up.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -18,6 +17,8 @@ import { FilterIdPipe } from './shared/filter-id.pipe';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { NestedComponent } from './nested.component';
+import { KeyboardShortcutsComponent, KeyboardShortcutsModule } from 'ng-keyboard-shortcuts';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     InformesComponent,
     PopUpComponent,
     ConfirmarComponent,
-    FilterIdPipe
+    FilterIdPipe,
+    NestedComponent
   ],
   imports: [
     BrowserModule,
@@ -38,14 +40,13 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     MatIconModule,
     MatSidenavModule,
     MatToolbarModule,
+    KeyboardShortcutsModule.forRoot(),
     MatDialogModule,
     MatProgressSpinnerModule,
     FormsModule,
     NgbModule
   ],
-  providers: [
-    { provide: 'SPEECH_LANG', useValue: 'es-Es' }
-  ],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

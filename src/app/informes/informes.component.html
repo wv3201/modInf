@@ -2,7 +2,7 @@
     <div class="table">
         <div class="row">
             <div class="cell1">
-                <button type="button" class="btn btn-dark" (click)=cambiarModo()>Oscuro / Claro</button>
+                <button type="button" id=ex (click)=cambiarModo()>Oscuro / Claro</button>
                 <div id="center">
                     <h5>Datos</h5>
                     <hr><br>
@@ -82,10 +82,11 @@
                         <textarea id="ex" class="aw" type="text" #tecnica value="{{tec}}"
                             (keydown)="evtselt5($event,'te')" placeholder="Técnica"></textarea>
                         <br>
-                        <h5>Observaciones</h5><br>
+                        <h5>Observaciones</h5>
                         <div>
-                            <button id="ex" (click)="toggleVoiceRecognition()">
-                                <mat-icon>{{ started ? 'mic_off' : 'mic' }}</mat-icon>
+                            <ng-keyboard-shortcuts [shortcuts]="shortcuts2"></ng-keyboard-shortcuts>
+                            <button id="ex" (click)="Estado()">
+                                <mat-icon>{{ started ? 'mic_off' : 'mic'}}</mat-icon>
                             </button>&nbsp;
                             <button id="ex" (click)="addH()">
                                 <mat-icon>description</mat-icon>
@@ -96,9 +97,13 @@
                             <button id="ex" (click)="clean()">
                                 <mat-icon>cancel</mat-icon>
                             </button>&nbsp;<br>
+                            <textarea id="b" value="{{temp}}" lang="es"
+                                spellcheck="true">
+                            </textarea><br>
+                            <label></label>
                             <textarea id="b" [(ngModel)]='InpuText' type="textarea" name="MSG" value="{{msg}}" lang="es"
                                 spellcheck="true">
-                    </textarea>
+                            </textarea>
                         </div>
                         <div>
                             <br>
@@ -119,13 +124,13 @@
                                 (keydown)="evtselt5($event,'im')" (keyup.Space)="evtselt6($event)"
                                 (keydown)="onKeydown($event)">
                     </textarea>
-                        </div>
+                        </div><br>
+                        <button id="ex"
+                            (click)="generatePdf(med.value,titulo.value,tecnica.value,fecf.value,plant.value,medico.value)">Generar
+                            Resumen
+                            <mat-icon>feedback</mat-icon>
+                        </button>
                     </div>
-                    <button id="ex"
-                        (click)="generatePdf(med.value,titulo.value,tecnica.value,fecf.value,plant.value,medico.value)">Generar
-                        Resumen
-                        <mat-icon>feedback</mat-icon>
-                    </button>
                 </form>
             </div>
             <div class="cell3"><br>
@@ -147,11 +152,11 @@
                         <hr><br>
                         <b>Dicom</b><br>
                         <!--<img src="../../../images/mirror.png" class="mirror-icon pointer">-->
-                        <button (click)=abrirModal()>
+                        <button id=ex (click)=abrirModal()>
                             <mat-icon>collections</mat-icon>
                         </button>
                         <br>
-                        <button (click)="imge()">Previsualizar</button>
+                        <button id=ex (click)="imge()">Previsualizar</button>
                         <br>
                         <iframe *ngIf="iframe" id="plugin" type="application/pdf" [src]="img"
                             stream-url="chrome-extension://mhjfbmdgcfjbbpaeojofohoefgiehjai/9998104a-f5f8-43cf-b25c-0a193ae75822"

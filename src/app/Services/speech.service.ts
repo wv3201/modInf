@@ -1,179 +1,124 @@
-import { Inject, Injectable, NgZone, OnDestroy } from '@angular/core';
-import { BehaviorSubject, Subject } from 'rxjs';
-import { debounceTime, takeUntil } from 'rxjs/operators';
+import { Injectable, NgZone } from '@angular/core';
+import { Observable } from 'rxjs';
+import * as _ from 'lodash';
 
-const DEFAULT_GRAMMAR = `#JSGF V1.0; grammar Digits;
-public <Digits> = ( <digit> ) + ;
-<digit> = ( cero | uno | dos | tres | cuatro | cinco | seis | siete | ocho | nueve );`;
-
-
-class Message {
-    success?: boolean;
-    error?: boolean;
-    message = '';
+interface IWindow extends Window {
+  webkitSpeechRecognition: any;
+  SpeechRecognition: any;
 }
+
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root'
 })
-export class SpeechService implements OnDestroy {
-    recognition?: SpeechRecognition;
-    message: Subject<Message> = new Subject();
-    command: Subject<{ context: string, command: string }> = new Subject();
-    commands: { [context: string]: any } = {};
-    context: BehaviorSubject<string> = new BehaviorSubject('');
-    refreshGrammar: BehaviorSubject<boolean> = new BehaviorSubject(false);
-    started: BehaviorSubject<boolean> = new BehaviorSubject(false);
+export class SpeechService {
+  speechRecognition: any;
+  msg:string='';
+  constructor(private zone: NgZone) {
+  }
 
-    words$ = new Subject<{ [key: string]: string }>();
-    private _destroyed = new Subject<void>();
+  record(): Observable<string> {
 
-    constructor(
-        private zone: NgZone,
-        @Inject('SPEECH_LANG') public lang: string,
-    ) {
-        if (window['SpeechRecognition'] || window['webkitSpeechRecognition']) {
-            this.init();
-        }
+      return Observable.create(observer => {
+          const { webkitSpeechRecognition }: IWindow = <IWindow><unknown>window;
+          this.speechRecognition = new webkitSpeechRecognition();
+          //this.speechRecognition = SpeechRecognition;
+          this.speechRecognition.continuous = false;
+          //this.speechRecognition.interimResults = true;
+          this.speechRecognition.lang = 'es-mx';
+          this.speechRecognition.maxAlternatives = 1;
+          this.speechRecognition.onresult = speech => {
+            this.msg=(speech.results[speech.resultIndex][0].transcript);
+              let term: string = ""; 
+
+              if (speech.results) {
+                  var result = speech.results[speech.resultIndex];
+                  var transcript = result[0].transcript;
+                  if (result.isFinal) {
+                      if (result[0].confidence < 0.2) {
+                          console.log("Unrecognized result - Please try again");
+                      }
+                      else {
+                          term += _.trim(transcript);
+                          console.log("Did you said? -> " + term + " , If not then say something else...");
+                      }
+                  }
+              }
+              this.zone.run(() => {
+                  observer.next(this.msg);
+              });
+          };
+          this.speechRecognition.onerror = error => {
+              observer.error(error);
+          };
+
+          this.speechRecognition.onend = () => {
+              observer.complete();
+          };
+
+          this.speechRecognition.start();
+          console.log("Say something - We are listening !!!");
+      });
+  }
+  show(): Observable<string> {
+
+    return Observable.create(observer => {
+          const { webkitSpeechRecognition }: IWindow = <IWindow><unknown>window;
+          this.speechRecognition = new webkitSpeechRecognition();
+          //this.speechRecognition = SpeechRecognition;
+          this.speechRecognition.continuous = false;
+          this.speechRecognition.interimResults = true;
+          this.speechRecognition.lang = 'es-mx';
+          this.speechRecognition.maxAlternatives = 2;
+          this.speechRecognition.onresult = speech => {
+            console.log(_.trim(speech.results[speech.resultIndex][0].transcript))
+          this.msg=_.trim(speech.results[speech.resultIndex][0].transcript);
+              this.zone.run(() => {
+                  observer.next(this.msg);
+              });
+          };
+          this.speechRecognition.onerror = error => {
+              observer.error(error);
+          };
+
+          this.speechRecognition.onend = () => {
+              observer.complete();
+          };
+
+          this.speechRecognition.start();
+          console.log("Say something - We are listening !!!");
+      });
     }
+    show2(): Observable<string> {
 
-    init() {
-        const SpeechRecognition = window['SpeechRecognition'] || window['webkitSpeechRecognition'];
-        this.recognition = <SpeechRecognition>(new SpeechRecognition());
-        this.recognition.lang = this.lang;
-        this.recognition.interimResults = false;
-        this.recognition.maxAlternatives = 8;
-        this.recognition.continuous = true;
-        this.recognition.onresult = event => {
-            let message: Message = { message: '' };
-            let word = '';
-            if (event.results) {
-                const result = event.results[event.resultIndex];
-                console.log("3")
-                if (result.isFinal) {
-                    if (result[0].confidence < 0.3) {
-                        message = { error: true, message: 'Cannot recognize' };
-                    } else {
-                        console.log("4");
-                        word = result[0].transcript.trim().toLowerCase();
-                        message = { success: true, message: word };
-                    }
-                }
-            }
-            this.zone.run(() => {
-                if (message['error']) {
-                    this.message.error(message);
-                } else {
-                    this.message.next(message);
-                    const context = this.getContextForWord(word);
-                    if (context) {
-                        this.context.next(context);
-                    } else {
-                        const isCommand = this.commands[this.context.value] && this.commands[this.context.value][word];
-                        if (isCommand) {
-                            this.command.next({ context: this.context.value, command: word });
-                        } else {
-                            // try to match a global context command
-                            const isGlobalCommand = this.commands[''] && this.commands[''][word];
-                            if (isGlobalCommand) {
-                                this.command.next({ context: '', command: word });
-                            }
-                        }
-                    }
-                }
-            });
-        };
-        this.recognition.onerror = error => {
-            this.zone.run(() => {
-                this.message.error(error);
-            });
-        };
-        this.recognition.onstart = () => {
-            this.zone.run(() => {
-                console.log("2")
-                this.started.next(true);
-            });
-        };
-        this.recognition.onend = () => {
-            this.zone.run(() => {
-                this.started.next(false);
-            });
-        };
+    return Observable.create(observer => {
+          const { webkitSpeechRecognition }: IWindow = <IWindow><unknown>window;
+          this.speechRecognition = new webkitSpeechRecognition();
+          //this.speechRecognition = SpeechRecognition;
+          this.speechRecognition.continuous = false;
+          this.speechRecognition.interimResults = true;
+          this.speechRecognition.lang = 'es-mx';
+          this.speechRecognition.maxAlternatives = 8;
+          this.speechRecognition.onsoundstart = speech => {
+            console.log(_.trim(speech.results[speech.resultIndex][0].transcript))
+          this.msg=_.trim(speech.results[speech.resultIndex][0].transcript);
+              this.zone.run(() => {
+                  observer.next(this.msg);
+              });
+          };
+          this.speechRecognition.onerror = error => {
+              observer.error(error);
+          };
 
-        this.refreshGrammar.pipe(
-            takeUntil(this._destroyed),
-            debounceTime(500)
-        ).subscribe(() => {
-            this.setGrammar();
-        });
+          this.speechRecognition.onend = () => {
+              observer.complete();
+          };
+
+          this.speechRecognition.start();
+          console.log("Say something - We are listening !!!");
+      });
     }
-
-    ngOnDestroy(): void {
-        this._destroyed.next();
-        this._destroyed.complete();
-    }
-
-    start(): void {
-        if (!this.started.getValue() && !!this.recognition) {
-            console.log("1")
-            this.recognition.start();
-        }
-    }
-
-    stop(): void {
-        if (this.started.getValue() && !!this.recognition) {
-            this.recognition.stop();
-        }
-    }
-
-    declareContext(context: string[]): void {
-        const contextKey = context.map(w => w.toLowerCase()).join('/');
-        if (!this.commands[contextKey]) {
-            this.commands[contextKey] = {};
-        }
-        this.refreshGrammar.next(true);
-    }
-
-    declareCommand(command, context): void {
-        const contextKey = context.map(w => w.toLowerCase()).join('/');
-        if (!this.commands[contextKey]) {
-            this.commands[contextKey] = {};
-        }
-        this.commands[contextKey][command.toLowerCase()] = true;
-        this.refreshGrammar.next(true);
-    }
-
-    setContext(context: string[]): void {
-        const contextKey = context.map(w => w.toLowerCase()).join('/');
-        this.context.next(contextKey);
-    }
-
-    getContextForWord(word: string): string | null {
-        // first try to match a subcontext of the current context
-        const context = this.context.value ? this.context.value + '/' + word : word;
-        if (this.commands[context]) {
-            return context;
-        }
-        // then try top-level context
-        if (this.commands[word]) {
-            return word;
-        }
-        return null;
-    }
-
-    private setGrammar(): void {
-        const SpeechGrammarList = window['SpeechGrammarList'] || window['webkitSpeechGrammarList'];
-        if (!!SpeechGrammarList && !!this.recognition) {
-            const words = {};
-            Object.keys(this.commands).forEach(context => {
-                context.split('/').forEach(word => {
-                    words[word] = true;
-                });
-                Object.keys(this.commands[context]).forEach(command => words[command] = true);
-            });
-            const grammar = DEFAULT_GRAMMAR + ' public <command> = ' + Object.keys(words).join(' | ') + ' ;';
-            const speechRecognitionList = new SpeechGrammarList();
-            speechRecognitionList.addFromString(grammar, 1);
-            this.recognition.grammars = speechRecognitionList;
-        }
-    }
+  DestroySpeechObject() {
+      if (this.speechRecognition)
+          this.speechRecognition.stop();
+  }
 }

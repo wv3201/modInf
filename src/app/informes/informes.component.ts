@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { Subscription, Subject, Observable, Observer } from 'rxjs';
 import { SpeechService } from '../Services/speech.service';
 import { takeUntil } from 'rxjs/operators';
@@ -16,9 +16,9 @@ import pdfMake from 'pdfmake/build/pdfmake';
 import pdfFonts from 'pdfmake/build/vfs_fonts';
 import { PdfService } from '../Services/pdf.service';
 import { HttpClient } from '@angular/common/http';
-import { toBase64String } from '@angular/compiler/src/output/source_map';
 import { InformesService } from '../Services/informes.service';
 import { DomSanitizer } from '@angular/platform-browser';
+import { ShortcutInput } from 'ng-keyboard-shortcuts';
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 
@@ -28,7 +28,7 @@ pdfMake.vfs = pdfFonts.pdfMake.vfs;
     templateUrl: './informes.component.html',
     styleUrls: ['./informes.component.scss']
 })
-export class InformesComponent implements OnInit {
+export class InformesComponent implements OnInit,AfterViewInit {
     clase: string = "white";
     profilePic = [];
     documentDefinition;
@@ -66,8 +66,11 @@ export class InformesComponent implements OnInit {
     fecha: any;
     documentDefinition3: any;
     iframe: boolean;
-
-    constructor(sanity: DomSanitizer, private http: HttpClient, public speech: SpeechService, private Service: HttpServiceService, private pdf: PdfService, private matDialog: MatDialog, public forms: FormsModule, private rutaActiva: ActivatedRoute, private infor: InformesService) {
+    ab:any='si';
+    estado:boolean=false;
+    temp='';
+    showSearchButton2: boolean;
+    constructor(sanity: DomSanitizer, private http: HttpClient, public speechRecognitionService: SpeechService, private Service: HttpServiceService, private pdf: PdfService, private matDialog: MatDialog, public forms: FormsModule, private rutaActiva: ActivatedRoute, private infor: InformesService) {
         this.loadS();
         this.sanity = sanity;
     }
@@ -75,18 +78,22 @@ export class InformesComponent implements OnInit {
         this.loadData();
         this.iframe = false;
         this.user = users;
-        this.speech.init();
-        this.speech.stop();
-        this.speech.message.pipe(
-            takeUntil(this._destroyed)
-        ).subscribe(msg => this.msg += ' ' + this.transcod(msg));
-        this.speech.context.pipe(
-            takeUntil(this._destroyed)
-        ).subscribe(context => this.analisis = context);
-        this.speech.started.pipe(
-            takeUntil(this._destroyed)
-        ).subscribe(started => this.started = started);
+        this.showSearchButton2=true;
     }
+        title = "Angular Router Demo";
+        shortcuts: ShortcutInput[] = [];
+        shortcuts2: ShortcutInput[] = [];
+        ngAfterViewInit() {
+            this.shortcuts2.push(
+                {
+                  key:["cmd + shift"],
+                  label: "Voz",
+                  description: "Voz",
+                  command: e => this.Estado(),
+                  preventDefault:true
+                }
+              );
+        }
 
     //evento al elegir plantilla se cargue tecnica, titulo, y examen realizado
     evtselt(plan: any) {
@@ -132,11 +139,10 @@ export class InformesComponent implements OnInit {
         } else {
             this.getBase64ImageFromURL(this.urls).subscribe(base64data => {
                 //console.log(base64data);
-                console.log('1');
                 this.profilePic[0] = 'data:image/jpg;base64,' + base64data;
                 this.pdf1(this.pdf.loadTemplate(this.data, this.ITImpre, this.ITHalla, this.ITAnte, this.medicos, this.tit, this.tec, this.profilePic, this.fecha, this.us[0], this.medicoI));
             });
-            this.iframe = true;
+            //this.iframe = true;
         }
     }
     //cargar firma medico informante
@@ -222,27 +228,6 @@ export class InformesComponent implements OnInit {
             }
         });
     }
-    /*
-        getBase64ImageFromURL2(url: string) {
-            return Observable.create((observer: Observer<string>) => {
-                let img = new Image();
-                img.crossOrigin = 'Anonymous';
-                img.src = url; img.src = url;
-                if (!img.complete) {
-                    img.onload = () => {
-                        observer.next(this.getBase64Image(img));
-                        observer.complete();
-                    };
-                    img.onerror = (err) => {
-                        observer.error(err);
-                    };
-                } else {
-                    observer.next(this.getBase64Image(img));
-                    observer.complete();
-                }
-            });
-        }
-    */
     //transformar Img a base64
     getBase64Image(img: HTMLImageElement) {
         var canvas = document.createElement("canvas");
@@ -294,12 +279,6 @@ export class InformesComponent implements OnInit {
         return this.InpuText;
     }
 
-    ngOnDestroy(): void {
-        this._destroyed.next();
-        this._destroyed.complete();
-        this.subscription.unsubscribe();
-    }
-
     //metodo para mostrar en pantalla un examen anterior
     verExamen(exam) {
         for (let i = 0; i < users.length; i++) {
@@ -314,14 +293,6 @@ export class InformesComponent implements OnInit {
                     }
                 }
             }
-        }
-    }
-
-    toggleVoiceRecognition(): void {
-        if (this.started) {
-            this.speech.stop();
-        } else {
-            this.speech.start();
         }
     }
     cambiarModo() {
@@ -420,14 +391,6 @@ export class InformesComponent implements OnInit {
         this.pdf1(this.documentDefinition3);
 
     }
-    recordStart(): void {
-        this.subscription = this.speech.message.subscribe(msg => {
-            this.msg = msg.message;
-        });
-    }
-    recordStop(): void {
-        this.subscription.unsubscribe();
-    }
     //cargar lista de medicos
     loadData() {
         /*this.Service.getData().subscribe(
@@ -449,6 +412,55 @@ export class InformesComponent implements OnInit {
             data: { value: this.rutaActiva.snapshot.params.id }
         });
     }
+    Estado(){
+        if(!this.estado){
+            this.started=true;
+              this.activateSpeechSearchMovie2('si')
+            }else{
+                this.started=false;
+              this.Stop();
+            }
+      }
+      Stop(){
+        this.ab='no'
+        this.speechRecognitionService.DestroySpeechObject();
+        this.estado=false;
+      }
+      activateSpeechSearchMovie2(e): void {
+        this.ab=e;
+        this.estado=true;
+        //this.showSearchButton2 = false;
+        //this.speechRecognitionService.record()
+        this.speechRecognitionService.show()
+        .subscribe(
+            //listener
+            (value) => {
+                this.temp =value+' ';
+                
+                console.log(value);
+            },
+            //errror
+            (err) => {
+                console.log(err);
+                if (err.error == "no-speech") {
+                    console.log("--restatring service--");
+                    this.temp='';
+                    this.activateSpeechSearchMovie2(e);
+                }
+            },
+            //completion
+            () => {
+                this.showSearchButton2 = true;
+                console.log("--complete--");
+                //this.msg+=' '+this.temp;
+                this.msg+=this.temp;
+                this.temp='';
+                if(this.ab!='no'){
+                  this.activateSpeechSearchMovie2(e);
+                }
+            });
+    }
+
     //elegir firma medico
     /*fileChanged(e) {
         const file = e.target.files[0];
