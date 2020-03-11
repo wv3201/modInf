@@ -82,8 +82,7 @@
                                 spellcheck="true">
                             </textarea><br>
                             <label></label>
-                            <textarea id="b" [(ngModel)]='InpuText' type="textarea" name="MSG" value="{{InpuText}}" lang="es"
-                                spellcheck="true">
+                            <textarea id="b" [(ngModel)]='InpuText' type="textarea" name="MSG" value="{{InpuText}}" >
                             </textarea>
                         </div>
                         <div>
@@ -99,9 +98,7 @@
                             <button id="ex" (click)="cleani()">
                                 <mat-icon>cancel</mat-icon>
                             </button>&nbsp;<br>
-                            <textarea id="a" [(ngModel)]='ITImpre' type="text" name="Impresión" value="{{ITImpre}}"
-                                (keydown)="evtselt5($event,'im')" (keyup.Space)="evtselt6($event)"
-                                (keydown)="onKeydown($event)">
+                            <textarea id="a" [(ngModel)]='ITImpre' type="text" name="Impresión" value="{{ITImpre}}">
                     </textarea>
                         </div><br>
                         <button id="ex"

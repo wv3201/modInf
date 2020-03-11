@@ -11,7 +11,9 @@ export class PdfService {
   constructor() { }
   loadTemplate(data: any, impre: any, halla: any, ante: any, D: any, tit, tec, profilePic, fecf, p, m: any) {
     this.profilePic = profilePic;
+    //console.log(halla);
     if (D == null) {
+      //console.log("2.1")
       this.estilos = {
         content: [
           { text: 'Informe Medico', bold: true, fontSize: 16, decoration: 'underline', alignment: 'center', margin: [0, 0, 0, 20] },
@@ -59,6 +61,7 @@ export class PdfService {
       }
       return this.estilos;
     } else {
+      //console.log("2.2")
       this.estilos = {
         General: {
           content: [
