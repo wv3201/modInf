@@ -9,7 +9,7 @@ export class PdfService {
   profilePic;
 
   constructor() { }
-  loadTemplate(data: any, impre: any, halla: any, ante: any, D: any, tit, tec, profilePic, fecf, p, m: any) {
+  loadTemplate(data: any, impre: any, halla: any, ante: any, D: any, tec, profilePic, fecf, p, m: any) {
     this.profilePic = profilePic;
     //console.log(halla);
     if (D == null) {
@@ -24,9 +24,6 @@ export class PdfService {
               { text: ' ' },
               { text: 'Fecha Examen: ' + fecf, style: 'body' },
               { text: ' ' },
-              { text: ' ' },
-              { text: 'Título:', style: 'header' },
-              { text: tit, style: 'body' },
               { text: ' ' },
               { text: 'Examen realizado:', style: 'header' },
               { text: ante, style: 'body' },
@@ -74,9 +71,6 @@ export class PdfService {
                 { text: 'Fecha Examen: ' + fecf, style: 'body' },
                 { text: ' ' },
                 { text: ' ' },
-                { text: 'Título:', style: 'header' },
-                { text: tit, style: 'body' },
-                { text: ' ' },
                 { text: 'Examen realizado:', style: 'header' },
                 { text: ante, style: 'body' },
                 { text: ' ' }
@@ -119,9 +113,6 @@ export class PdfService {
                 { text: ' ' },
                 { text: 'Fecha Examen: ' + fecf, style: 'body' },
                 { text: ' ' },
-                { text: ' ' },
-                { text: 'Título:', style: 'header' },
-                { text: tit, style: 'body' },
                 { text: ' ' },
                 { text: 'Examen realizado:', style: 'header' },
                 { text: ante, style: 'body' },

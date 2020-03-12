@@ -6,19 +6,20 @@ div.table {
   border-collapse: collapse;
   //border: 1px solid red;
 }
-
 body {
   transition: 0.4s;
-  background: #eeeeee;
+  background: #fff !important;
   color: black;
   width: auto;
   height: auto;
 }
 .black {
   background: #212121;
-  color: rgba(163, 163, 162, 0.822);
+  color: #b1b1b1;
+  width:auto;
+  height:auto;
   button {
-    color: rgba(163, 163, 162, 0.822);
+    color: #b1b1b1;
     background: #212121;
   }
   input {
@@ -42,7 +43,6 @@ body {
   background: #fff;
   color: #000;
 }
-
 div.row {
   display: table-row;
 }
@@ -63,12 +63,12 @@ div.row {
 }
 div.cell1 {
   display: table-cell;
-  width: 25%;
+  width: 18%;
   //border: 1px solid red;
 }
 div.cell2 {
   display: table-cell;
-  width: 35%;
+  width: 42%;
   //border: 1px solid red;
 }
 div.cell3 {
@@ -86,7 +86,6 @@ div.colspan + div.cell {
 div.colspan > div {
   width: 1px;
 }
-
 div.colspan > div > div {
   position: relative;
   width: 99px;
@@ -145,3 +144,121 @@ div.colspan > div > div {
   align-items: center;
   border-radius: 100px;
 }
+  button {
+    padding-top: 0px !important;
+  }
+  .btn {
+    cursor: pointer;
+    display: inline-block;
+    vertical-align: middle;
+    height: 40px;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 1;
+    text-align: center;
+    text-transform: uppercase;
+    padding: 12px 35px 0 35px;
+    background-color: #50b8e7;
+    border: none;
+    color: #fff;
+    border-radius: 3px;
+    box-shadow: none !important;
+    outline: 0 !important;
+    -moz-transition: all 0.15s ease;
+    -o-transition: all 0.15s ease;
+    -webkit-transition: all 0.15s ease;
+    transition: all 0.15s ease;
+  }
+  input,
+  textarea,
+  select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    display: block;
+    height: 36px;
+    width: 100%;
+    margin-bottom: 0px;
+    background-color: #fff;
+    border: 2px solid #eaeaea;
+    border-radius: 2px;
+    padding-left: 15px;
+    padding-right: 15px;
+    font-size: 14px;
+    color: #323032;
+    font-weight: 400;
+    outline: none;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    overflow: hidden;
+    line-height: normal !important;
+  }
+  textarea.abs {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    display: block;
+    height: 36px;
+    width: 50%;
+    margin-bottom: 0px;
+    background-color: #fff;
+    border: 2px solid #eaeaea;
+    border-radius: 2px;
+    padding-left: 15px;
+    padding-right: 15px;
+    font-size: 14px;
+    color: #323032;
+    font-weight: 400;
+    outline: none;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    overflow: hidden;
+    line-height: normal !important;
+  }
+  textarea::-webkit-input-placeholder,
+  select::-webkit-input-placeholder {
+    font-weight: 400;
+    color: rgba(130, 132, 143, 0.5);
+  }
+  
+  textarea:-moz-placeholder,
+  select:-moz-placeholder {
+    font-weight: 400;
+    color: rgba(130, 132, 143, 0.5);
+  }
+  
+  textarea::-moz-placeholder,
+  select::-moz-placeholder {
+    font-weight: 400;
+    color: rgba(130, 132, 143, 0.5);
+  }
+  textarea:-ms-input-placeholder,
+  select:-ms-input-placeholder {
+    font-weight: 400;
+    color: rgba(130, 132, 143, 0.5);
+  }
+  textarea:focus,
+  select:focus {
+    box-shadow: none !important;
+    border: 2px solid #ddd;
+  }
+  div[class^="channel-bgd-"] {
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    float: left;
+    text-align: center;
+    position: absolute;
+    margin-right: 15px;
+    left: 0;
+  }
+  div[class^="channel-bgd-"] i {
+    position: absolute !important;
+    font-size: 36px !important;
+    color: #fff !important;
+    line-height: 50px !important;
+    left: 2px !important;
+    top: 0 !important;
+  }
