@@ -22,7 +22,6 @@ import { ShortcutInput } from 'ng-keyboard-shortcuts';
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 
-
 @Component({
     selector: 'app-informes',
     templateUrl: './informes.component.html',
@@ -69,7 +68,7 @@ export class InformesComponent implements OnInit, AfterViewInit {
     ab: any = 'si';
     estado: boolean = false;
     temp = '';
-    frase2:any='';
+    frase2: any = '';
     showSearchButton2: boolean;
     constructor(sanity: DomSanitizer, private http: HttpClient, public speechRecognitionService: SpeechService, private Service: HttpServiceService, private pdf: PdfService, private matDialog: MatDialog, public forms: FormsModule, private rutaActiva: ActivatedRoute, private infor: InformesService) {
         this.loadS();
@@ -95,7 +94,6 @@ export class InformesComponent implements OnInit, AfterViewInit {
             }
         );
     }
-
     //evento al elegir plantilla se cargue tecnica, titulo, y examen realizado
     evtselt(plan: any) {
         var c;
@@ -115,11 +113,11 @@ export class InformesComponent implements OnInit, AfterViewInit {
                 //console.log(base64data);
                 this.profilePic[0] = 'data:image/jpg;base64,' + base64data;
                 this.pdf1(this.pdf.loadTemplate(this.data, this.ITImpre, this.ITHalla, this.ITAnte, this.medicos, this.tit, this.tec, this.profilePic, '--', this.plantilla, ""));
-                this.documentDefinition3=this.pdf.loadTemplate(this.data, this.ITImpre, this.ITHalla, this.ITAnte, this.medicos, this.tit, this.tec, this.profilePic, '--', this.plantilla, "");
+                this.documentDefinition3 = this.pdf.loadTemplate(this.data, this.ITImpre, this.ITHalla, this.ITAnte, this.medicos, this.tit, this.tec, this.profilePic, '--', this.plantilla, "");
             });
         } else {
             this.pdf1(this.pdf.loadTemplate(this.data, this.ITImpre, this.ITHalla, this.ITAnte, this.medicos, this.tit, this.tec, this.profilePic, this.fecha, this.plantilla, this.medicoI));
-            this.documentDefinition3=this.pdf.loadTemplate(this.data, this.ITImpre, this.ITHalla, this.ITAnte, this.medicos, this.tit, this.tec, this.profilePic, '--', this.plantilla, "");
+            this.documentDefinition3 = this.pdf.loadTemplate(this.data, this.ITImpre, this.ITHalla, this.ITAnte, this.medicos, this.tit, this.tec, this.profilePic, '--', this.plantilla, "");
         }
     }
     //evento para cargar las plantillas segun el medico seleccionado
@@ -143,7 +141,7 @@ export class InformesComponent implements OnInit, AfterViewInit {
                 //console.log(base64data);
                 this.profilePic[0] = 'data:image/jpg;base64,' + base64data;
                 this.pdf1(this.pdf.loadTemplate(this.data, this.ITImpre, this.ITHalla, this.ITAnte, this.medicos, this.tit, this.tec, this.profilePic, this.fecha, this.us[0], this.medicoI));
-                this.documentDefinition3=this.pdf.loadTemplate(this.data, this.ITImpre, this.ITHalla, this.ITAnte, this.medicos, this.tit, this.tec, this.profilePic, this.fecha, this.us[0], this.medicoI);
+                this.documentDefinition3 = this.pdf.loadTemplate(this.data, this.ITImpre, this.ITHalla, this.ITAnte, this.medicos, this.tit, this.tec, this.profilePic, this.fecha, this.us[0], this.medicoI);
             });
             //this.iframe = true;
         }
@@ -166,7 +164,7 @@ export class InformesComponent implements OnInit, AfterViewInit {
                 //console.log(base64data);
                 this.profilePic[1] = 'data:image/jpg;base64,' + base64data;
                 this.pdf1(this.pdf.loadTemplate(this.data, this.ITImpre, this.ITHalla, this.ITAnte, this.medicos, this.tit, this.tec, this.profilePic, this.fecha, this.plantilla, this.medicoI));
-                this.documentDefinition3=this.pdf.loadTemplate(this.data, this.ITImpre, this.ITHalla, this.ITAnte, this.medicos, this.tit, this.tec, this.profilePic, this.fecha, this.plantilla, this.medicoI);
+                this.documentDefinition3 = this.pdf.loadTemplate(this.data, this.ITImpre, this.ITHalla, this.ITAnte, this.medicos, this.tit, this.tec, this.profilePic, this.fecha, this.plantilla, this.medicoI);
             });
         }
     }
@@ -198,14 +196,10 @@ export class InformesComponent implements OnInit, AfterViewInit {
                 break;
         }
         this.documentDefinition3 = this.pdf.loadTemplate(this.data, this.ITImpre, this.ITHalla, this.ITAnte, this.medicos, this.tit, this.tec, this.profilePic, this.fecha, this.plantilla, this.medicoI);
-
     }
-
     evtselt6(event) {
         this.pdf1(this.documentDefinition3);
     }
-
-
     //obtener base64 de la url de una imagen
     getBase64ImageFromURL(url: string) {
         return Observable.create((observer: Observer<string>) => {
@@ -237,9 +231,8 @@ export class InformesComponent implements OnInit, AfterViewInit {
         //console.log(dataURL);
         return dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
     }
-    /*
-        //metodo para transformar imagenes
-        toDataUrl(urlss, callback) {
+    //metodo para transformar imagenes
+    /*  toDataUrl(urlss, callback) {
             var vara;
             const xhr = new XMLHttpRequest();
             xhr.onload = function () {
@@ -247,7 +240,6 @@ export class InformesComponent implements OnInit, AfterViewInit {
                 reader.onloadend = function () {
                     callback(reader.result);
                     vara = reader.result as string;
-    
                 }
                 reader.readAsDataURL(xhr.response);
             };
@@ -257,7 +249,6 @@ export class InformesComponent implements OnInit, AfterViewInit {
             xhr.send();
             console.log(xhr);
         }*/
-
     //cargar segundo select medicos
     loadS() {
         for (let is = 0; is < meidicos.length; is++) {
@@ -267,15 +258,13 @@ export class InformesComponent implements OnInit, AfterViewInit {
             if (is != 2) { this.a++; }
         }
     }
-
     //metodo de traduccion de palabras a simbolos
     transcod(str) {
         console.log('//msg=' + str);
         this.mss = str.replace(' punto y aparte', '.\n ^').replace(' dos puntos', ':').replace(' punto', '.').replace(' comas', ',').replace('aparte', '\n ').replace('a parte', '\n ').replace('comillas ', '"').replace(' comilla ', '"');
-        str= this.mss;
+        str = this.mss;
         return str;
     }
-    
     //metodo para mostrar en pantalla un examen anterior
     /*  verExamen(exam) {
           for (let i = 0; i < users.length; i++) {
@@ -305,8 +294,6 @@ export class InformesComponent implements OnInit, AfterViewInit {
             if (med == users[i].Nombre) {
                 this.as = fecf.split("-");
                 fecf = this.as[2] + '/' + this.as[1] + '/' + this.as[0];
-                console.log(fecf);
-                console.log(med);
                 for (let j = 0; j < users[i].plantillas.length; j++) {
                     if (plant == users[i].plantillas[j].nombre) {
                         this.plan = users[i].plantillas[j];
@@ -340,14 +327,10 @@ export class InformesComponent implements OnInit, AfterViewInit {
         });
     }
     imge() {
-        
-        
-        this.documentDefinition3=this.pdf.loadTemplate(this.data,this.upper(this.ITImpre),this.upper(this.ITHalla), this.ITAnte, this.medicos, this.tit, this.tec, this.profilePic, this.fecha, this.plantilla, this.medicoI);
+        this.documentDefinition3 = this.pdf.loadTemplate(this.data, this.upper(this.ITImpre), this.upper(this.ITHalla), this.ITAnte, this.medicos, this.tit, this.tec, this.profilePic, this.fecha, this.plantilla, this.medicoI);
         this.pdf1(this.documentDefinition3);
-        
-        this.iframe=true;
+        this.iframe = true;
     }
-
     //limpiar caja de observaciones
     clean() {
         this.msg = '';
@@ -379,7 +362,6 @@ export class InformesComponent implements OnInit, AfterViewInit {
         this.InpuText = '';
         //this.documentDefinition3 = this.pdf.loadTemplate(this.data, this.ITImpre, this.ITHalla, this.ITAnte, this.medicos, this.tit, this.tec, this.profilePic, this.fecha, this.plantilla, this.medicoI);
         //this.pdf1(this.documentDefinition3);
-
     }
     //Añadir texto de observacion a impresion
     addI() {
@@ -391,7 +373,6 @@ export class InformesComponent implements OnInit, AfterViewInit {
         this.InpuText = '';
         //this.documentDefinition3 = this.pdf.loadTemplate(this.data, this.ITImpre, this.ITHalla, this.ITAnte, this.medicos, this.tit, this.tec, this.profilePic, this.fecha, this.plantilla, this.medicoI);
         //this.pdf1(this.documentDefinition3);
-
     }
     //cargar lista de medicos
     loadData() {
@@ -407,7 +388,6 @@ export class InformesComponent implements OnInit, AfterViewInit {
         this.documentDefinition3 = this.pdf.loadTemplate(this.data, this.ITImpre, this.ITHalla, this.ITAnte, null, this.tit, this.tec, this.profilePic, this.fecha, this.plantilla, this.medicoI);
         //this.pdf1(this.documentDefinition3);
         //this.evtselt2('Seleccione medico');
-
     }
     abrirModal() {
         this.matDialog.open(PopUpComponent, {
@@ -461,35 +441,44 @@ export class InformesComponent implements OnInit, AfterViewInit {
                     if (this.ab != 'no') {
                         this.activateSpeechSearchMovie2(e);
                     }
-                    this.InpuText += ' '+this.msg;
-
+                    this.InpuText += ' ' + this.msg;
+                    //this.InpuText += ' '+this.upper(this.msg);
                 });
     }
-    upper(frase){
-        frase=this.transcod(frase);
-        console.log(frase);
-        var indice=0;
-        var indicePunto=frase.indexOf('.',indice);
-        if(indicePunto<0){
+    upper(frase) {
+        frase = this.transcod(frase);
+        var ind;
+        var i = frase.indexOf('. ', ind);
+        while (i >= 0) {
+            frase = frase.replace(' ', '');
+            i = frase.indexOf('. ', ind)
+        }
+        //frase=frase.replace(' ','').replace('. ','.').replace('. ','.');
+        var indice = 0;
+        var indicePunto = frase.indexOf('.', indice);
+        if (indicePunto < 0) {
             return frase;
-        }else{
-        while(indicePunto>=0){
-            if(frase.substring(indice,indice+1)==('"')){
-                this.frase2='"'
-                this.frase2 += frase.substring(indice+1,indice+2).toUpperCase();
-                this.frase2 += frase.substring(indice+2,indicePunto+1)+' '; 
-                indice= indicePunto + 2;
-                indicePunto = frase.indexOf('.',indice);
-            }else{
-                this.frase2 += frase.substring(indice,indice+1).toUpperCase();
-                this.frase2 += frase.substring(indice+1,indicePunto+1)+' ';
-                indice= indicePunto + 2;
-                indicePunto = frase.indexOf('.',indice);
-                
+        } else {
+            while (indicePunto >= 0) {
+                if (frase.substring(indice, indice + 1) == ('"')) {
+                    this.frase2 = '"'
+                    this.frase2 += frase.substring(indice + 1, indice + 2).toUpperCase();
+                    this.frase2 += frase.substring(indice + 2, indicePunto + 1) + ' ';
+                    indice = indicePunto + 2;
+                    indicePunto = frase.indexOf('.', indice);
+                } else {
+                    if (frase.substring(indice, indice + 1) != "\n") {
+                        this.frase2 += frase.substring(indice, indice + 1).toUpperCase();
+                        this.frase2 += frase.substring(indice + 1, indicePunto + 1) + ' ';
+                        indice = indicePunto + 1;
+                        indicePunto = frase.indexOf('.', indice);
+                    } else {
+                        this.frase2 += '\n';
+                        indice++;
+                    }
                 }
-            
             }
-            return this.frase2+' ';
+            return this.frase2 + ' ';
         }
     }
     //elegir firma medico
