@@ -14,7 +14,7 @@ body {
   height: auto;
 }
 .black {
-  background: #212121;
+  background: #212121 !important;
   color: #b1b1b1;
   width:auto;
   height:auto;
@@ -40,7 +40,7 @@ body {
   }
 }
 .white {
-  background: #fff;
+  background: #fff !important;
   color: #000;
 }
 div.row {
