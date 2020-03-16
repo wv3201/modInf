@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import htmlToPdfmake from 'html-to-pdfmake'
 
 @Injectable({
   providedIn: 'root'
@@ -7,10 +8,19 @@ export class PdfService {
   estilos: any;
   f = new Date();
   profilePic;
+  impre:any;
+  halla:any;
 
   constructor() { }
   loadTemplate(data: any, impre: any, halla: any, ante: any, D: any, tec, profilePic, fecf, p, m: any) {
     this.profilePic = profilePic;
+    var stil={'html-strong':{ color:'solid black', bold:true},
+        'html-em':{ italics:true},
+        'html-u':{ decoration:'underline'},
+        'html-h1':{ fontSize:24, bold:true, marginBottom:5},
+        'html-p': { margin:[0, 5, 0, 10] }}
+    this.impre=htmlToPdfmake(impre);
+    this.halla=htmlToPdfmake(halla);
     //console.log(halla);
     if (D == null) {
       //console.log("2.1")

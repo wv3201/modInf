@@ -258,27 +258,7 @@ export class InformesComponent implements OnInit, AfterViewInit {
             if (is != 2) { this.a++; }
         }
     }
-    //replace
-    replace(str,re){
-        var n = str.search('punto');
-        str = str.replace('punto y aparte', '.\n').replace(' dos puntos', ':').replace(' punto ', '.').replace(' comas', ',').replace('aparte', '\n ').replace('a parte', '\n ').replace('comillas ', '"').replace(' comilla ', '"').replace('puntos suspensivos','...').replace('etcetera','etc.');
-        /*while () {
-            this.str = str.replace('punto y aparte', '.\n').replace(' dos puntos', ':').replace(' punto ', '.').replace(' comas', ',').replace('aparte', '\n ').replace('a parte', '\n ').replace('comillas ', '"').replace(' comilla ', '"').replace('puntos suspensivos','...').replace('etcetera','etc.');
-            str = this.mss;
-            this.mss=''
-        }*/
-        return str;
-    }
-    //metodo de traduccion de palabras a simbolos
-    transcod(str) {
-        console.log('//msg=' + str);
-        str=this.replace(str,'punto');
-        //str=this.replace(str,'dos puntos');
-        //str=this.replace(str,'comas');
-        //str=this.replace(str,'comillas');
-        console.log(str); 
-        return str;
-    }
+    
     //metodo para mostrar en pantalla un examen anterior
     /*  verExamen(exam) {
           for (let i = 0; i < users.length; i++) {
@@ -341,7 +321,7 @@ export class InformesComponent implements OnInit, AfterViewInit {
         });
     }
     imge() {
-        this.documentDefinition3 = this.pdf.loadTemplate(this.data, this.upper(this.ITImpre), this.upper(this.ITHalla), this.ITAnte, this.medicos, this.tec, this.profilePic, this.fecha, this.plantilla, this.medicoI);
+        this.documentDefinition3 = this.pdf.loadTemplate(this.data,this.upper(this.ITImpre), this.upper(this.ITHalla), this.ITAnte, this.medicos, this.tec, this.profilePic, this.fecha, this.plantilla, this.medicoI);
         this.pdf1(this.documentDefinition3);
         this.iframe = true;
         this.frase2='';
@@ -400,7 +380,7 @@ export class InformesComponent implements OnInit, AfterViewInit {
         )*/
         this.id = this.rutaActiva.snapshot.params.id;
         this.data = data[this.id];
-        this.documentDefinition3 = this.pdf.loadTemplate(this.data, this.ITImpre, this.ITHalla, this.ITAnte, null, this.tec, this.profilePic, this.fecha, this.plantilla, this.medicoI);
+        this.documentDefinition3 = this.pdf.loadTemplate(this.data, this.upper(this.ITImpre), this.upper(this.ITHalla), this.ITAnte, null, this.tec, this.profilePic, this.fecha, this.plantilla, this.medicoI);
         //this.pdf1(this.documentDefinition3);
         //this.evtselt2('Seleccione medico');
     }
@@ -462,6 +442,7 @@ export class InformesComponent implements OnInit, AfterViewInit {
     }
     upper(frase) {
         frase = this.transcod(frase);
+        console.log(frase);
         var ind;
         var i = frase.indexOf('. ', ind);
         while (i >= 0) {
@@ -471,12 +452,13 @@ export class InformesComponent implements OnInit, AfterViewInit {
         //frase=frase.replace(' ','').replace('. ','.').replace('. ','.');
         var indice = 0;
         var indicePunto = frase.indexOf('.', indice);
+        console.log(frase)
         if (indicePunto < 0) {
             return frase;
         } else {
             while (indicePunto >= 0) {
                 if (frase.substring(indice, indice + 1) == ('"')) {
-                    this.frase2 = '"'
+                    this.frase2 += '"'
                     this.frase2 += frase.substring(indice + 1, indice + 2).toUpperCase();
                     this.frase2 += frase.substring(indice + 2, indicePunto + 1) + ' ';
                     indice = indicePunto + 2;
@@ -495,6 +477,26 @@ export class InformesComponent implements OnInit, AfterViewInit {
             }
             return '    '+this.frase2 + ' ';
         }
+    }
+    //replace
+    replace(str,re){
+        var n = str.search('punto');
+        str = str.replace(' punto y aparte', '. <br>').replace(' dos puntos', ':').replace(' punto ', '.').replace(' comas', ',').replace('aparte', '<br> ').replace('a parte', '<br> ').replace('comillas ', '"').replace(' comilla', '"').replace('puntos suspensivos','...').replace('etcetera','etc.');
+        /*while () {
+            this.str = str.replace('punto y aparte', '.\n').replace(' dos puntos', ':').replace(' punto ', '.').replace(' comas', ',').replace('aparte', '\n ').replace('a parte', '\n ').replace('comillas ', '"').replace(' comilla ', '"').replace('puntos suspensivos','...').replace('etcetera','etc.');
+            str = this.mss;
+            this.mss=''
+        }*/
+        return str;
+    }
+    //metodo de traduccion de palabras a simbolos
+    transcod(str) {
+        console.log('//msg=' + str);
+        for(var i=0;i<str.length;i++){
+        str=this.replace(str,'punto');
+        }
+        console.log(str); 
+        return str;
     }
     //elegir firma medico
     /*fileChanged(e) {
