@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
 import { Subscription, Subject, Observable, Observer } from 'rxjs';
 import { SpeechService } from '../Services/speech.service';
 import { takeUntil } from 'rxjs/operators';
@@ -19,6 +19,7 @@ import { HttpClient } from '@angular/common/http';
 import { InformesService } from '../Services/informes.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ShortcutInput } from 'ng-keyboard-shortcuts';
+import { CKEditorComponent } from 'ng2-ckeditor/ckeditor.component';
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 
@@ -70,6 +71,8 @@ export class InformesComponent implements OnInit, AfterViewInit {
     temp = '';
     frase2: any = '';
     showSearchButton2: boolean;
+    ckeditorContent:string = ""
+    @ViewChild('CKEditorComponent.inline') ckeditor: CKEditorComponent;
     constructor(sanity: DomSanitizer, private http: HttpClient, public speechRecognitionService: SpeechService, private Service: HttpServiceService, private pdf: PdfService, private matDialog: MatDialog, public forms: FormsModule, private rutaActiva: ActivatedRoute, private infor: InformesService) {
         this.loadS();
         this.sanity = sanity;
@@ -94,6 +97,16 @@ export class InformesComponent implements OnInit, AfterViewInit {
             }
         );
     }
+    config: any = {
+        language: 'es',
+        toolbar: [
+          { name: 'clipboard', items: ['Cut', 'Copy', 'Paste', '-', 'Undo', 'Redo'] },
+          { name: 'editing', items: ['Scayt'] },
+          { name: 'basicstyles', items: ['Bold', 'Italic', 'Underline', 'Strike', '-', 'Subscript', 'Superscript'] },
+          { name: 'paragraph', items: ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote'] },
+          { name: 'styles', items: ['Styles', 'Format', 'FontSize'] },
+        ]
+      }
     //evento al elegir plantilla se cargue tecnica, titulo, y examen realizado
     evtselt(plan: any) {
         var c;
@@ -353,6 +366,7 @@ export class InformesComponent implements OnInit, AfterViewInit {
             this.InpuText = this.msg;
         }
         this.ITHalla += this.InpuText;
+        this.ITHalla = this.transcod(this.ITHalla);
         this.msg = '    ';
         this.InpuText = '   ';
         //this.documentDefinition3 = this.pdf.loadTemplate(this.data, this.ITImpre, this.ITHalla, this.ITAnte, this.medicos, this.tit, this.tec, this.profilePic, this.fecha, this.plantilla, this.medicoI);
@@ -364,6 +378,8 @@ export class InformesComponent implements OnInit, AfterViewInit {
             this.InpuText = this.msg;
         }
         this.ITImpre += this.InpuText;
+        this.ITImpre = this.transcod(this.ITImpre);
+
         this.msg = '    ';
         this.InpuText = '   ';
         //this.documentDefinition3 = this.pdf.loadTemplate(this.data, this.ITImpre, this.ITHalla, this.ITAnte, this.medicos, this.tit, this.tec, this.profilePic, this.fecha, this.plantilla, this.medicoI);
@@ -441,7 +457,7 @@ export class InformesComponent implements OnInit, AfterViewInit {
                 });
     }
     upper(frase) {
-        frase = this.transcod(frase);
+        //frase = this.transcod(frase);
         console.log(frase);
         var ind;
         var i = frase.indexOf('. ', ind);
@@ -450,18 +466,19 @@ export class InformesComponent implements OnInit, AfterViewInit {
             i = frase.indexOf('. ', ind)
         }
         //frase=frase.replace(' ','').replace('. ','.').replace('. ','.');
-        var indice = 0;
+        var indice = 3;
         var indicePunto = frase.indexOf('.', indice);
         console.log(frase)
         if (indicePunto < 0) {
             return frase;
         } else {
             while (indicePunto >= 0) {
-                if (frase.substring(indice, indice + 1) == ('"')) {
+                console.log(frase.substring(indice,indice+6))
+                if (frase.substring(indice, indice + 6) == ('&quot;')) {
                     this.frase2 += '"'
-                    this.frase2 += frase.substring(indice + 1, indice + 2).toUpperCase();
-                    this.frase2 += frase.substring(indice + 2, indicePunto + 1) + ' ';
-                    indice = indicePunto + 2;
+                    this.frase2 += frase.substring(indice + 6, indice + 7).toUpperCase();
+                    this.frase2 += frase.substring(indice + 7, indicePunto + 1) + ' ';
+                    indice = indicePunto + 1;
                     indicePunto = frase.indexOf('.', indice);
                 } else {
                     if (frase.substring(indice, indice + 1) != "\n") {

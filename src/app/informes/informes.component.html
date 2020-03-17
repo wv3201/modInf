@@ -24,7 +24,7 @@
                                 <label>Médico</label>&nbsp;
                                 <select #med (change)="evtselt2($event.target.value)">
                                     <option *ngFor="let medi of user" value="{{medi.Nombre}}">{{medi.Nombre}}</option>
-                                </select>&nbsp;&nbsp;&nbsp;
+                                </select>&nbsp;&nbsp;
                                 <label>Plantilla</label>&nbsp;&nbsp;
                                 <select #plant (change)="evtselt($event.target.value)">
                                     <option *ngFor="let plan of us" value="{{plan.nombre}}">{{plan.nombre}}</option>
@@ -52,12 +52,12 @@
                                 <input id="exs" type="date" #fecf name="fecha"
                                     (change)="evtselt4($event.target.value)"><br>
                                 <label>Examen Realizado</label>&nbsp;&nbsp;<br>
-                                <textarea id="ex" class="aw" [(ngModel)]='ITAnte' (keydown)="evtselt5($event,'ex')"
+                                <textarea id="ex" class="abs" [(ngModel)]='ITAnte' (keydown)="evtselt5($event,'ex')"
                                     type="text" name="Antecedentes" value="{{ITAnte}}"></textarea>
                             </div>
                         </div>
                         <label>Técnica</label>&nbsp;&nbsp;<br>
-                        <textarea id="ex" class="aw" type="text" #tecnica value="{{tec}}"
+                        <textarea id="ex" class="abs" type="text" #tecnica value="{{tec}}"
                             (keydown)="evtselt5($event,'te')" placeholder="Técnica"></textarea>
                         <br>
                         <h5>Observaciones</h5>
@@ -75,8 +75,9 @@
                             <button id="ex" (click)="clean()">
                                 <mat-icon>cancel</mat-icon>
                             </button>&nbsp;<br>
-                            <textarea class="abs" value="{{temp}}" lang="es" spellcheck="true">
-                            </textarea>&nbsp;<textarea class="abs" [(ngModel)]='InpuText' type="textarea" name="MSG"
+                            <textarea class="ab" value="{{temp}}">
+                            </textarea>
+                            <textarea class="ab" [(ngModel)]='InpuText' type="textarea" name="MSG"
                                 value="{{InpuText}}">
                             </textarea>
                         </div>
@@ -86,15 +87,15 @@
                             <button id="ex" (click)="cleanh()">
                                 <mat-icon>cancel</mat-icon>
                             </button>&nbsp;<br>
-                            <textarea id="a" [(ngModel)]='ITHalla' type="text" name="Hallazgos" value="{{ITHalla}}">
-                        </textarea>
+                            <ckeditor #content id="ck" [(ngModel)]="ITHalla" [config]="config" type="text" name="Hallazgos">
+                        </ckeditor>
                             <br>
                             <mat-icon>textsms</mat-icon>&nbsp;<label>Impresión</label>&nbsp;
                             <button id="ex" (click)="cleani()">
                                 <mat-icon>cancel</mat-icon>
                             </button>&nbsp;<br>
-                            <textarea id="a" [(ngModel)]='ITImpre' type="text" name="Impresión" value="{{ITImpre}}">
-                    </textarea>
+                            <ckeditor id="a" [(ngModel)]='ITImpre' [config]="config" type="text" name="Impresión" value="{{ITImpre}}">
+                            </ckeditor>
                         </div><br>
                         <button id="ex"
                             (click)="generatePdf(med.value,tecnica.value,fecf.value,plant.value,medico.value)">Generar

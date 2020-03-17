@@ -52,7 +52,7 @@ export class PdfService {
           }, {
             columns: [[
               { text: 'Hallazgos:', style: 'header' },
-              { text: halla, style: 'body' },
+              { text: this.halla, style: 'body' },
               { text: ' ' },
               { text: ' ' },
               { text: 'Impresión:', style: 'header' },
@@ -224,5 +224,6 @@ export class PdfService {
     }
 
   }
+  
 
 }

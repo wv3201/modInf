@@ -33,6 +33,7 @@
     "html-to-pdfmake": "^1.2.2",
     "http-server": "^0.12.1",
     "ng-keyboard-shortcuts": "^8.2.5",
+    "ng2-ckeditor": "^1.2.7",
     "pdfmake": "^0.1.65",
     "rxjs": "~6.5.4",
     "tslib": "^1.11.1",

@@ -18,6 +18,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { NestedComponent } from './nested.component';
+import { CKEditorModule } from 'ng2-ckeditor';
 import { KeyboardShortcutsComponent, KeyboardShortcutsModule } from 'ng-keyboard-shortcuts';
 
 
@@ -44,6 +45,7 @@ import { KeyboardShortcutsComponent, KeyboardShortcutsModule } from 'ng-keyboard
     KeyboardShortcutsModule.forRoot(),
     MatDialogModule,
     MatProgressSpinnerModule,
+    CKEditorModule,
     FormsModule,
     NgbModule
   ],
