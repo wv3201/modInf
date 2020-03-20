@@ -244,24 +244,7 @@ export class InformesComponent implements OnInit, AfterViewInit {
         //console.log(dataURL);
         return dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
     }
-    //metodo para transformar imagenes
-    /*  toDataUrl(urlss, callback) {
-            var vara;
-            const xhr = new XMLHttpRequest();
-            xhr.onload = function () {
-                const reader = new FileReader();
-                reader.onloadend = function () {
-                    callback(reader.result);
-                    vara = reader.result as string;
-                }
-                reader.readAsDataURL(xhr.response);
-            };
-            console.log(vara)
-            xhr.open('GET', urlss);
-            xhr.responseType = 'blob';
-            xhr.send();
-            console.log(xhr);
-        }*/
+   
     //cargar segundo select medicos
     loadS() {
         for (let is = 0; is < meidicos.length; is++) {
@@ -272,22 +255,6 @@ export class InformesComponent implements OnInit, AfterViewInit {
         }
     }
     
-    //metodo para mostrar en pantalla un examen anterior
-    /*  verExamen(exam) {
-          for (let i = 0; i < users.length; i++) {
-              if (exam.usuario == users[i].id) {
-                  this.media = users[i].Nombre;
-                  for (let j = 0; j < users[i].plantillas.length; j++) {
-                      if (exam.plantilla == users[i].plantillas[j].nombre) {
-                          const documentDefinition2 = this.infor.loadTemplate2(this.data, exam.Impresión, exam.Hallazgos, users[i].plantillas[j].examen, users[i], users[i].plantillas[j].titulo, users[i].plantillas[j].tecnica, '', exam.fechaE, users[i].plantillas[j], exam.fechaI);
-                          this.matDialog.open(ConfirmarComponent, {
-                              data: { value: documentDefinition2 }
-                          });
-                      }
-                  }
-              }
-          }
-      }*/
     cambiarModo() {
         if (this.clase == "white") {
             this.clase = "black";
@@ -499,11 +466,7 @@ export class InformesComponent implements OnInit, AfterViewInit {
     replace(str,re){
         var n = str.search('punto');
         str = str.replace(' punto y aparte', '. <br>').replace(' dos puntos', ':').replace(' punto ', '.').replace(' comas', ',').replace('aparte', '<br> ').replace('a parte', '<br> ').replace('comillas ', '"').replace(' comilla', '"').replace('puntos suspensivos','...').replace('etcetera','etc.');
-        /*while () {
-            this.str = str.replace('punto y aparte', '.\n').replace(' dos puntos', ':').replace(' punto ', '.').replace(' comas', ',').replace('aparte', '\n ').replace('a parte', '\n ').replace('comillas ', '"').replace(' comilla ', '"').replace('puntos suspensivos','...').replace('etcetera','etc.');
-            str = this.mss;
-            this.mss=''
-        }*/
+      
         return str;
     }
     //metodo de traduccion de palabras a simbolos
@@ -515,21 +478,4 @@ export class InformesComponent implements OnInit, AfterViewInit {
         console.log(str); 
         return str;
     }
-    //elegir firma medico
-    /*fileChanged(e) {
-        const file = e.target.files[0];
-        this.getBase64(file);
-    }*/
-    //transformar imagen en base 64 para ser mostrada en el informe
-    /*getBase64(file) {
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = () => {
-            console.log(reader.result);
-            this.profilePic[0] = reader.result as string;
-        };
-        reader.onerror = (error) => {
-            console.log('Error: ', error);
-        };
-    }*/
 } 

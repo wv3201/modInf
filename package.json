@@ -30,6 +30,7 @@
     "cornerstone-math": "^0.1.8",
     "cornerstone-tools": "^2.6.0",
     "dicom-parser": "^1.8.5",
+    "firebase-tools": "^7.15.1",
     "html-to-pdfmake": "^1.2.2",
     "http-server": "^0.12.1",
     "ng-keyboard-shortcuts": "^8.2.5",
