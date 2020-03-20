@@ -2,6 +2,7 @@
   {
     "id": 1,
     "name": "Leanne Graham",
+    "fechaNac":"10/21/1965", 
     "edad": "54 Años",
     "rut": "3.453.123-3",
     "email": "Sincere@april.biz",
@@ -26,6 +27,7 @@
   {
     "id": 2,
     "name": "Ervin Howell",
+    "fechaNac":"05/12/1998", 
     "edad": "21 Años",
     "rut": "18.410.345-2",
     "email": "Shanna@melissa.tv",
@@ -50,6 +52,7 @@
   {
     "id": 3,
     "name": "Clementine Bauch",
+    "fechaNac":"01/02/1995", 
     "edad": "25 Años",
     "rut": "17.413.525-7",
     "email": "Nathan@yesenia.net",
@@ -74,7 +77,7 @@
   {
     "id": 4,
     "name": "Patricia Lebsack",
-    "edad": "28 Años",
+    "fechaNac":"11/15/1991", "edad": "28 Años",
     "rut": "16.626.731-3",
     "email": "Julianne.OConner@kory.org",
     "address": {
@@ -98,6 +101,7 @@
   {
     "id": 5,
     "name": "Chelsey Dietrich",
+    "fechaNac":"01/01/1972", 
     "edad": "48 Años",
     "rut": "12.312.645-6",
     "email": "Lucio_Hettinger@annie.ca",
@@ -122,6 +126,7 @@
   {
     "id": 6,
     "name": "Mrs. Dennis Schulist",
+    "fechaNac":"01/02/1970", 
     "edad": "50 Años",
     "rut": "11.343.989-2",
     "email": "Karley_Dach@jasper.info",
@@ -146,6 +151,7 @@
   {
     "id": 7,
     "name": "Kurtis Weissnat",
+    "fechaNac":"05/04/1966", 
     "edad": "54 Años",
     "rut": "10.789.520-7",
     "email": "Telly.Hoeger@billy.biz",
@@ -170,6 +176,7 @@
   {
     "id": 8,
     "name": "Nicholas Runolfsdottir V",
+    "fechaNac":"02/03/1986", 
     "edad": "34 Años",
     "rut": "15.127.432-2",
     "email": "Sherwood@rosamond.me",
@@ -194,7 +201,7 @@
   {
     "id": 9,
     "name": "Glenna Reichert",
-    "edad": "74 Años",
+    "fechaNac":"03/02/1946", "edad": "74 Años",
     "rut": "3.127.432-2",
     "email": "Chaim_McDermott@dana.io",
     "address": {
@@ -218,6 +225,7 @@
   {
     "id": 10,
     "name": "Clementina DuBuque",
+    "fechaNac":"04/03/1964", 
     "edad": "56 Años",
     "rut": "9.271.342-5",
     "email": "Rey.Padberg@karina.biz",

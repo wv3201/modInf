@@ -207,7 +207,7 @@ div.colspan > div > div {
     -moz-appearance: none;
     appearance: none;
     height: 36px;
-    width: 40%;
+    width: 35% !important;
     margin-bottom: 0px;
     background-color: #fff;
     border: 2px solid #eaeaea;
@@ -225,7 +225,7 @@ div.colspan > div > div {
     line-height: normal !important;
   }
   .ab {
-    height: 36px;
+    height: 110px !important;
     width: 40%;
     margin-bottom: 0px;
     background-color: #fff;
@@ -244,7 +244,7 @@ div.colspan > div > div {
     line-height: normal !important;
   }
   textarea::-webkit-input-placeholder,
-  select::-webkit-input-placeholder {
+  select::-webkit-input-placeholder { 
     font-weight: 400;
     color: rgba(130, 132, 143, 0.5);
   }

@@ -101,10 +101,10 @@ export class InformesComponent implements OnInit, AfterViewInit {
         language: 'es',
         toolbar: [
           { name: 'clipboard', items: ['Cut', 'Copy', 'Paste', '-', 'Undo', 'Redo'] },
+          { name: 'basicstyles', items: [ 'Bold', 'Italic', 'Underline', 'Strike', '-', 'Subscript', 'Superscript','NumberedList', 'BulletedList', '-', 'Outdent', 'Indent']},
           { name: 'editing', items: ['Scayt'] },
-          { name: 'basicstyles', items: ['Bold', 'Italic', 'Underline', 'Strike', '-', 'Subscript', 'Superscript'] },
-          { name: 'paragraph', items: ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote'] },
-          { name: 'styles', items: ['Styles', 'Format', 'FontSize'] },
+          { name: 'paragraph', items: [ 'Blockquote',  '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock', '-'] },
+           { name: 'styles', items: ['Styles', 'Format', 'FontSize'] },
         ]
       }
     //evento al elegir plantilla se cargue tecnica, titulo, y examen realizado
@@ -263,7 +263,7 @@ export class InformesComponent implements OnInit, AfterViewInit {
         }
     }
     //metodo para generar informe en pdf
-    generatePdf(med, tec, fecf: string, plant, me) {
+    generatePdf(med, fecf: string, plant, me) {
         for (let i = 0; i < users.length; i++) {
             if (med == users[i].Nombre) {
                 this.as = fecf.split("-");
@@ -274,7 +274,7 @@ export class InformesComponent implements OnInit, AfterViewInit {
                         for (let k = 0; k < this.m.length; k++) {
                             if (me == this.m[k].id) {
                                 console.log(this.m[k].id)
-                                const documentDefinition = this.pdf.loadTemplate(this.data, this.upper(this.ITImpre), this.upper(this.ITHalla), this.ITAnte, users[i], tec, this.profilePic, fecf, this.plan, this.m[k]);
+                                const documentDefinition = this.pdf.loadTemplate(this.data, this.upper(this.ITImpre), this.upper(this.ITHalla), this.ITAnte, users[i], this.tec, this.profilePic, fecf, this.plan, this.m[k]);
                                 //this.documentDefinition = this.pdf.loadTemplate(this.data, this.ITImpre, this.ITHalla, this.ITAnte, users[i], tit, tec, this.profilePic, fecf, this.plan, this.m[k]);
                                 //pdfMake.createPdf(documentDefinition).open();
                                 this.matDialog.open(ConfirmarComponent, {
@@ -305,7 +305,7 @@ export class InformesComponent implements OnInit, AfterViewInit {
         this.pdf1(this.documentDefinition3);
         this.iframe = true;
         this.frase2='';
-    }
+    } 
     //limpiar caja de observaciones
     clean() {
         this.msg = '';
@@ -363,9 +363,62 @@ export class InformesComponent implements OnInit, AfterViewInit {
         )*/
         this.id = this.rutaActiva.snapshot.params.id;
         this.data = data[this.id];
+        /*const convertAge = new Date(this.data.fechaNac);
+        const timeDiff = Math.abs(Date.now() - convertAge.getTime());
+        this.data.edad = Math.floor((timeDiff / (1000 * 3600 * 24))/365);*/
+        this.data.edad=this.calcularEdad(this.data.fechaNac);
         this.documentDefinition3 = this.pdf.loadTemplate(this.data, this.upper(this.ITImpre), this.upper(this.ITHalla), this.ITAnte, null, this.tec, this.profilePic, this.fecha, this.plantilla, this.medicoI);
         //this.pdf1(this.documentDefinition3);
         //this.evtselt2('Seleccione medico');
+    }
+    calcularEdad(fecha){
+        var values = fecha.split("/");
+        var dia = values[1];
+        var mes = values[0];
+        var ano = values[2];
+
+        // cogemos los valores actuales
+        var fecha_hoy = new Date();
+        var ahora_ano = fecha_hoy.getFullYear();
+        var ahora_mes = fecha_hoy.getMonth() + 1;
+        var ahora_dia = fecha_hoy.getDate();
+
+        // realizamos el calculo
+        var edad = (ahora_ano + 1900) - ano;
+        if (ahora_mes < mes) {
+            edad--;
+        }
+        if ((mes == ahora_mes) && (ahora_dia < dia)) {
+            edad--;
+        }
+        if (edad > 1900) {
+            edad -= 1900;
+        }
+
+        // calculamos los meses
+        var meses = 0;
+
+        if (ahora_mes > mes && dia > ahora_dia)
+            meses = ahora_mes - mes - 1;
+        else if (ahora_mes > mes)
+            meses = ahora_mes - mes
+        if (ahora_mes < mes && dia < ahora_dia)
+            meses = 12 - (mes - ahora_mes);
+        else if (ahora_mes < mes)
+            meses = 12 - (mes - ahora_mes + 1);
+        if (ahora_mes == mes && dia > ahora_dia)
+            meses = 11;
+
+        // calculamos los dias
+        var dias = 0;
+        if (ahora_dia > dia)
+            dias = ahora_dia - dia;
+        if (ahora_dia < dia) {
+            const ultimoDiaMes = new Date(ahora_ano, ahora_mes - 1, 0);
+            dias = ultimoDiaMes.getDate() - (dia - ahora_dia);
+        }
+
+        return edad + " años, " + meses + " meses y " + dias + " días";
     }
     abrirModal() {
         this.matDialog.open(PopUpComponent, {
@@ -396,7 +449,7 @@ export class InformesComponent implements OnInit, AfterViewInit {
             .subscribe(
                 //listener
                 (value) => {
-                    this.temp = value + ' ';
+                    this.temp = ' '+value;
 
                     console.log(value);
                 },
@@ -419,17 +472,17 @@ export class InformesComponent implements OnInit, AfterViewInit {
                     if (this.ab != 'no') {
                         this.activateSpeechSearchMovie2(e);
                     }
-                    this.InpuText += ' ' + this.msg;
+                    this.InpuText += ' ' + this.msg+'.';
                     //this.InpuText += ' '+this.upper(this.msg);
                 });
     }
     upper(frase) {
         //frase = this.transcod(frase);
-        console.log(frase);
+        this.frase2='';
         var ind;
         var i = frase.indexOf('. ', ind);
         while (i >= 0) {
-            frase = frase.replace('. ', '.');
+            frase = frase.replace('. ', '.').replace('.&nbsp;','.');
             i = frase.indexOf('. ', ind)
         }
         //frase=frase.replace(' ','').replace('. ','.').replace('. ','.');

@@ -17,8 +17,23 @@ export class PdfService {
     var stil={'html-strong':{ color:'solid black', bold:true},
         'html-em':{ italics:true},
         'html-u':{ decoration:'underline'},
-        'html-h1':{ fontSize:24, bold:true, marginBottom:5},
-        'html-p': { margin:[0, 5, 0, 10] }}
+        'html-p': { margin:[0, 5, 0, 10] },
+        'html-b': {bold:true},
+        'html-s': {decoration: 'lineThrough'},
+        'html-i': {italics:true},
+        'html-h1': {fontSize:24, bold:true, marginBottom:5},
+        'hmtl-h2': {fontSize:22, bold:true, marginBottom:5},
+        'html-h3': {fontSize:20, bold:true, marginBottom:5},
+        'html-h4': {fontSize:18, bold:true, marginBottom:5},
+        'html-h5': {fontSize:16, bold:true, marginBottom:5},
+        'html-h6': {fontSize:14, bold:true, marginBottom:5},
+        'html-a': {color:'blue', decoration:'underline'},
+        'html-strike': {decoration: 'lineThrough'},
+        'html-ul': {marginBottom:5},
+        'html-li': {marginLeft:5},
+        'html-table': {marginBottom:5},
+        'html-th': {bold:true, fillColor:'#EEEEEE'}
+      }
     this.impre=htmlToPdfmake(impre);
     this.halla=htmlToPdfmake(halla);
     //console.log(halla);

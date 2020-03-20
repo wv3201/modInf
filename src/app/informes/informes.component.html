@@ -52,13 +52,13 @@
                                 <input id="exs" type="date" #fecf name="fecha"
                                     (change)="evtselt4($event.target.value)"><br>
                                 <label>Examen Realizado</label>&nbsp;&nbsp;<br>
-                                <textarea id="ex" class="abs" [(ngModel)]='ITAnte' (keydown)="evtselt5($event,'ex')"
+                                <textarea id="ex" class="abs" [(ngModel)]='ITAnte'
                                     type="text" name="Antecedentes" value="{{ITAnte}}"></textarea>
                             </div>
                         </div>
                         <label>Técnica</label>&nbsp;&nbsp;<br>
-                        <textarea id="ex" class="abs" type="text" #tecnica value="{{tec}}"
-                            (keydown)="evtselt5($event,'te')" placeholder="Técnica"></textarea>
+                        <textarea id="ex" class="abs" [(ngModel)]='tec' 
+                        type="text" name="tecnica" value="{{tec}}"></textarea>
                         <br>
                         <h5>Observaciones</h5>
                         <div>
@@ -87,18 +87,18 @@
                             <button id="ex" (click)="cleanh()">
                                 <mat-icon>cancel</mat-icon>
                             </button>&nbsp;<br>
-                            <ckeditor #content id="ck" [(ngModel)]="ITHalla" [config]="config" type="text" name="Hallazgos">
+                            <ckeditor id="ck" [(ngModel)]="ITHalla" [config]="config" type="text" name="Hallazgos">
                         </ckeditor>
                             <br>
                             <mat-icon>textsms</mat-icon>&nbsp;<label>Impresión</label>&nbsp;
                             <button id="ex" (click)="cleani()">
                                 <mat-icon>cancel</mat-icon>
                             </button>&nbsp;<br>
-                            <ckeditor id="a" [(ngModel)]='ITImpre' [config]="config" type="text" name="Impresión" value="{{ITImpre}}">
+                            <ckeditor id="a" [(ngModel)]='ITImpre' type="text" name="Impresión" value="{{ITImpre}}">
                             </ckeditor>
                         </div><br>
                         <button id="ex"
-                            (click)="generatePdf(med.value,tecnica.value,fecf.value,plant.value,medico.value)">Generar
+                            (click)="generatePdf(med.value,fecf.value,plant.value,medico.value)">Generar
                             Resumen
                             <mat-icon>feedback</mat-icon>
                         </button>
@@ -112,7 +112,7 @@
                         <!--<tr *ngFor="let exam of bd" (click)="verExamen(exam)">
                             <ng-container *ngIf="exam.idPaciente == data.id">
                                 <td>{{exam.Nombre}}</td>
-                            </ng-container>
+                            </ng-container> 
                         </tr>-->
                         <br>
                     </div>
