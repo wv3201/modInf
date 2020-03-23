@@ -477,9 +477,7 @@ export class InformesComponent implements OnInit, AfterViewInit {
     }
     upper(frase) {
         //frase = this.transcod(frase);
-        if (frase != '') {
-            frase = '<p>' + frase + '</p>';
-        }
+        
         this.frase2 = '';
         var ind;
         var i = frase.indexOf('. ', ind);
@@ -501,7 +499,9 @@ export class InformesComponent implements OnInit, AfterViewInit {
             i2 = frase.indexOf('</p>', ind2);
             console.log(i2);
         }
-
+        if (frase != '' && frase.substring(0,3)!='<p>') {
+            frase = '<p>' + frase + '</p>';
+        }
         //frase=frase.replace(' ','').replace('. ','.').replace('. ','.');
         var indice = 3;
         var indicePunto = frase.indexOf('.', indice);
@@ -510,12 +510,25 @@ export class InformesComponent implements OnInit, AfterViewInit {
             return frase;
         } else {
             while (indicePunto >= 0) {
+                console.log(frase.substring(indice,indice+1)+frase.substring(indice+12,indice+13))
                 if (frase.substring(indice, indice + 6) == ('&quot;')) {
                     this.frase2 += '"'
                     this.frase2 += frase.substring(indice + 6, indice + 7).toUpperCase();
                     this.frase2 += frase.substring(indice + 7, indicePunto + 1) + ' ';
                     indice = indicePunto + 1;
                     indicePunto = frase.indexOf('.', indice);
+                } else if (frase.substring(indice, indice + 8) == ('<strong>')) {
+                    this.frase2 += '<strong>'
+                    this.frase2 += frase.substring(indice + 8, indice + 9).toUpperCase();
+                    this.frase2 += frase.substring(indice + 9, indicePunto + 1) + ' ';
+                    indice = indicePunto + 1;
+                    indicePunto = frase.indexOf('.', indice);
+                } else if( '<' == frase.substring(indice,indice+1) && '>'==frase.substring(indice+12,indice+13)) {
+                    this.frase2 += frase.substring(indice,indice+13);
+                    this.frase2 += frase.substring(indice+13,indice+14).toUpperCase();
+                    this.frase2 += frase.substring(indice+14,indicePunto+1) + '';
+                    indice=indicePunto+1;
+                    indicePunto= frase.indexOf('.', indice);
                 } else if ('<span style="font-size:9px">' == frase.substring(indice, indice + 28) ||
                     '<span style="font-size:8px">' == frase.substring(indice, indice + 28)) {
                     this.frase2 += frase.substring(indice, indice + 28);

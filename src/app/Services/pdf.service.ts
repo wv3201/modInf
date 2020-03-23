@@ -68,11 +68,11 @@ export class PdfService {
           }, {
             columns: [[
               { text: 'Hallazgos:', style: 'header' },
-              { text: this.halla, style: 'body' },
+              { text: this.halla, style: stil },
               { text: ' ' },
               { text: ' ' },
               { text: 'Impresión:', style: 'header' },
-              { text: impre, style: 'body' },
+              { text: this.impre, style: stil },
               { text: ' ' },
               { text: ' ' }]]
           }], styles: {
@@ -84,7 +84,6 @@ export class PdfService {
       }
       return this.estilos;
     } else {
-      //console.log("2.2")
       this.estilos = {
         General: {
           content: [
@@ -114,11 +113,11 @@ export class PdfService {
             }, {
               columns: [[
                 { text: 'Hallazgos:', style: 'header' },
-                { text: halla, style: 'body' },
+                { text: this.halla, style: stil },
                 { text: ' ' },
                 { text: ' ' },
                 { text: 'Impresión:', style: 'header' },
-                { text: impre, style: 'body' },
+                { text: this.impre, style: stil },
                 { text: ' ' },
                 { text: ' ' }]]
             }, {
@@ -158,11 +157,11 @@ export class PdfService {
             {
               columns: [[
                 { text: 'Hallazgos:', style: 'header' },
-                { text: halla, style: 'body' },
+                { text: this.halla, style: stil },
                 { text: ' ' },
                 { text: ' ' },
                 { text: 'Impresión:', style: 'header' },
-                { text: impre, style: 'body' },
+                { text: this.impre, style: stil },
                 { text: ' ' },
                 { text: ' ' }
               ]]
@@ -238,8 +237,5 @@ export class PdfService {
         margin: [0, 10, 0, 0]
       }]]
     }
-
   }
-
-
 }
