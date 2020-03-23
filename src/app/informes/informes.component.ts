@@ -485,6 +485,12 @@ export class InformesComponent implements OnInit, AfterViewInit {
             frase = frase.replace('. ', '.').replace('.&nbsp;','.');
             i = frase.indexOf('. ', ind)
         }
+        var inda;
+        var i3= frase.indexOf('.&nbsp;',inda)
+        while(i3>=0){
+            frase = frase.replace('.&nbsp;','.');
+            i3=frase.indexOf('.&nbsp;',inda);
+        }
         var ind2;
         var i2 = frase.indexOf('</p>'); 
         while (i2 >= 0){
@@ -516,6 +522,13 @@ export class InformesComponent implements OnInit, AfterViewInit {
                     this.frase2+=frase.substring(indice+29,indicePunto+1)+'';
                     indice=indicePunto+1;
                     indicePunto=frase.indexOf('.',indice);
+                } else if('</span><span style="font-size:9px">'==frase.substring(indice,indice+35)||
+                '</span><span style="font-size:8px">'==frase.substring(indice,indice+35)){
+                    this.frase2+=frase.substring(indice,indice+35);
+                    this.frase2+=frase.substring(indice+35,indice+36).toUpperCase();
+                    this.frase2+=frase.substring(indice+36,indicePunto+1)+'';
+                    indice=indicePunto+1;
+                    indicePunto=frase.indexOf('.',indice);
                 } else if('<span style="font-size:10px">'==frase.substring(indice,indice+29)||
                 '<span style="font-size:11px">'==frase.substring(indice,indice+29)||
                 '<span style="font-size:12px">'==frase.substring(indice,indice+29)||
@@ -533,6 +546,25 @@ export class InformesComponent implements OnInit, AfterViewInit {
                     this.frase2+=frase.substring(indice,indice+29);
                     this.frase2+=frase.substring(indice+29,indice+30).toUpperCase();
                     this.frase2+=frase.substring(indice+30,indicePunto+1)+'';
+                    indice=indicePunto+1;
+                    indicePunto=frase.indexOf('.',indice);
+                } else if('</span><span style="font-size:10px">'==frase.substring(indice,indice+36)||
+                '</span><span style="font-size:11px">'==frase.substring(indice,indice+36)||
+                '</span><span style="font-size:12px">'==frase.substring(indice,indice+36)||
+                '</span><span style="font-size:14px">'==frase.substring(indice,indice+36)||
+                '</span><span style="font-size:16px">'==frase.substring(indice,indice+36)||
+                '</span><span style="font-size:18px">'==frase.substring(indice,indice+36)||
+                '</span><span style="font-size:20px">'==frase.substring(indice,indice+36)||
+                '</span><span style="font-size:22px">'==frase.substring(indice,indice+36)||
+                '</span><span style="font-size:24px">'==frase.substring(indice,indice+36)||
+                '</span><span style="font-size:26px">'==frase.substring(indice,indice+36)||
+                '</span><span style="font-size:28px">'==frase.substring(indice,indice+36)||
+                '</span><span style="font-size:36px">'==frase.substring(indice,indice+36)||
+                '</span><span style="font-size:48px">'==frase.substring(indice,indice+36)||
+                '</span><span style="font-size:72px">'==frase.substring(indice,indice+36)){
+                    this.frase2+=frase.substring(indice,indice+36);
+                    this.frase2+=frase.substring(indice+36,indice+37).toUpperCase();
+                    this.frase2+=frase.substring(indice+37,indicePunto+1)+'';
                     indice=indicePunto+1;
                     indicePunto=frase.indexOf('.',indice);
                 } else {
