@@ -20,7 +20,6 @@ export class HomeComponent implements OnInit {
     this.loadData();
   }
   loadData() {
-    console.log("0");
     this.data = data;
     /*this.Service.getData().subscribe(data=>{
       this.data=data;

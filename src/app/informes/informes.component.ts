@@ -70,6 +70,7 @@ export class InformesComponent implements OnInit, AfterViewInit {
     estado: boolean = false;
     temp = '';
     frase2: any = '';
+    content:any = false;
     showSearchButton2: boolean;
     ckeditorContent: string = ""
     @ViewChild('CKEditorComponent.inline') ckeditor: CKEditorComponent;
@@ -82,6 +83,8 @@ export class InformesComponent implements OnInit, AfterViewInit {
         this.iframe = false;
         this.user = users;
         this.showSearchButton2 = true;
+        //CKEDITOR.disableAutoInline = true;
+        //CKEDITOR.inline( "editor" );
     }
     title = "Angular Router Demo";
     shortcuts: ShortcutInput[] = [];
@@ -321,6 +324,7 @@ export class InformesComponent implements OnInit, AfterViewInit {
     cleanh() {
         this.analisis = '';
         this.ITHalla = '';
+        document.getElementById("ITHalla").innerHTML = '';
         this.subscription = Subscription.EMPTY;
         this.started = false;
     }
@@ -328,6 +332,7 @@ export class InformesComponent implements OnInit, AfterViewInit {
     cleani() {
         this.impresion = '';
         this.ITImpre = '';
+        document.getElementById("ITImpre").innerHTML = '';
         this.subscription = Subscription.EMPTY;
         this.started = false;
     }
@@ -366,6 +371,7 @@ export class InformesComponent implements OnInit, AfterViewInit {
                 this.data = data[this.id];
             }
         )*/
+        this.content=true;
         this.id = this.rutaActiva.snapshot.params.id;
         this.data = data[this.id];
         /*const convertAge = new Date(this.data.fechaNac);
@@ -511,7 +517,6 @@ export class InformesComponent implements OnInit, AfterViewInit {
         //frase=frase.replace(' ','').replace('. ','.').replace('. ','.');
         var indice = 3;
         var indicePunto = frase.indexOf('.', indice);
-        console.log(frase)
         if (indicePunto < 0) {
             return frase;
         } else {
