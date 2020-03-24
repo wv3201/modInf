@@ -40,13 +40,13 @@ export class InformesComponent implements OnInit, AfterViewInit {
     msg = '';
     mss = '';
     comment = '';
-    ITAnte: string = '   ';
+    ITAnte: string = '';
     tit: string = '';
     tec: string = '';
     analisis = '';
-    ITHalla: string = '   ';
+    ITHalla: string = '';
     impresion = '';
-    ITImpre: string = '   ';
+    ITImpre: string = '';
     subscription = Subscription.EMPTY;
     started = false;
     data: any;
@@ -320,14 +320,14 @@ export class InformesComponent implements OnInit, AfterViewInit {
     //limpiar caja de texto hallazgos
     cleanh() {
         this.analisis = '';
-        this.ITHalla = '  ';
+        this.ITHalla = '';
         this.subscription = Subscription.EMPTY;
         this.started = false;
     }
     //limpiar caja de texto Impresion
     cleani() {
         this.impresion = '';
-        this.ITImpre = '  ';
+        this.ITImpre = '';
         this.subscription = Subscription.EMPTY;
         this.started = false;
     }
@@ -338,8 +338,9 @@ export class InformesComponent implements OnInit, AfterViewInit {
         }
         this.ITHalla += this.InpuText;
         this.ITHalla = this.transcod(this.ITHalla);
-        this.msg = '    ';
-        this.InpuText = '   ';
+        document.getElementById("ITHalla").innerHTML = this.ITHalla;
+        this.msg = '';
+        this.InpuText = '';
         //this.documentDefinition3 = this.pdf.loadTemplate(this.data, this.ITImpre, this.ITHalla, this.ITAnte, this.medicos, this.tit, this.tec, this.profilePic, this.fecha, this.plantilla, this.medicoI);
         //this.pdf1(this.documentDefinition3);
     }
@@ -350,9 +351,9 @@ export class InformesComponent implements OnInit, AfterViewInit {
         }
         this.ITImpre += this.InpuText;
         this.ITImpre = this.transcod(this.ITImpre);
-
-        this.msg = '    ';
-        this.InpuText = '   ';
+        document.getElementById("ITImpre").innerHTML = this.ITImpre;
+        this.msg = '';
+        this.InpuText = '';
         //this.documentDefinition3 = this.pdf.loadTemplate(this.data, this.ITImpre, this.ITHalla, this.ITAnte, this.medicos, this.tit, this.tec, this.profilePic, this.fecha, this.plantilla, this.medicoI);
         //this.pdf1(this.documentDefinition3);
     }
@@ -453,7 +454,7 @@ export class InformesComponent implements OnInit, AfterViewInit {
             .subscribe(
                 //listener
                 (value) => {
-                    this.temp = ' ' + value;
+                    this.temp = value + '';
 
                     console.log(value);
                 },
@@ -476,7 +477,7 @@ export class InformesComponent implements OnInit, AfterViewInit {
                     if (this.ab != 'no') {
                         this.activateSpeechSearchMovie2(e);
                     }
-                    this.InpuText += ' ' + this.msg + '.';
+                    this.InpuText += this.msg + '.';
                     //this.InpuText += ' '+this.upper(this.msg);
                 });
     }
@@ -604,14 +605,13 @@ export class InformesComponent implements OnInit, AfterViewInit {
                     }
                 }
             }
-            return '    ' + this.frase2 + ' ';
+            return this.frase2 + ' ';
         }
     }
     //replace
     replace(str, re) {
         var n = str.search('punto');
         str = str.replace(' punto y aparte', '. <br>').replace(' dos puntos', ':').replace(' punto ', '.').replace(' comas', ',').replace('aparte', '<br> ').replace('a parte', '<br> ').replace('comillas ', '"').replace(' comilla', '"').replace('puntos suspensivos', '...').replace('etcetera', 'etc.');
-
         return str;
     }
     //metodo de traduccion de palabras a simbolos
