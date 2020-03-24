@@ -20,6 +20,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { ShortcutInput } from 'ng-keyboard-shortcuts';
 import { CKEditorComponent } from 'ng2-ckeditor/ckeditor.component';
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
+declare var CKEDITOR: any;
 
 
 @Component({
@@ -263,6 +264,8 @@ export class InformesComponent implements OnInit, AfterViewInit {
     }
     //metodo para generar informe en pdf
     generatePdf(med, fecf: string, plant, me) {
+        this.ITHalla=document.getElementById("ITHalla").innerHTML;
+        this.ITImpre=document.getElementById("ITImpre").innerHTML;
         for (let i = 0; i < users.length; i++) {
             if (med == users[i].Nombre) {
                 this.as = fecf.split("-");
@@ -300,6 +303,8 @@ export class InformesComponent implements OnInit, AfterViewInit {
         });
     }
     imge() {
+        this.ITHalla=document.getElementById("ITHalla").innerHTML;
+        this.ITImpre=document.getElementById("ITImpre").innerHTML;
         this.documentDefinition3 = this.pdf.loadTemplate(this.data, this.upper(this.ITImpre), this.upper(this.ITHalla), this.ITAnte, this.medicos, this.tec, this.profilePic, this.fecha, this.plantilla, this.medicoI);
         this.pdf1(this.documentDefinition3);
         this.iframe = true;
@@ -521,6 +526,12 @@ export class InformesComponent implements OnInit, AfterViewInit {
                     this.frase2 += '<strong>'
                     this.frase2 += frase.substring(indice + 8, indice + 9).toUpperCase();
                     this.frase2 += frase.substring(indice + 9, indicePunto + 1) + ' ';
+                    indice = indicePunto + 1;
+                    indicePunto = frase.indexOf('.', indice);
+                }  else if (frase.substring(indice, indice + 4) == ('<em>')) {
+                    this.frase2 += '<em>'
+                    this.frase2 += frase.substring(indice + 4, indice + 5).toUpperCase();
+                    this.frase2 += frase.substring(indice + 5, indicePunto + 1) + ' ';
                     indice = indicePunto + 1;
                     indicePunto = frase.indexOf('.', indice);
                 } else if( '<' == frase.substring(indice,indice+1) && '>'==frase.substring(indice+12,indice+13)) {

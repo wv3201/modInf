@@ -86,15 +86,15 @@
                             <button id="ex" (click)="cleanh()">
                                 <mat-icon>cancel</mat-icon>
                             </button>&nbsp;<br>
-                            <ckeditor id="ck" [(ngModel)]="ITHalla" [config]="config" type="text" name="Hallazgos">
-                            </ckeditor>
+                            <div id="ITHalla" contenteditable="true" #ITHalla>
+                            </div>
                             <br>
                             <mat-icon>textsms</mat-icon>&nbsp;<label>Impresión</label>&nbsp;
                             <button id="ex" (click)="cleani()">
                                 <mat-icon>cancel</mat-icon>
                             </button>&nbsp;<br>
-                            <ckeditor id="a" [(ngModel)]='ITImpre' type="text" name="Impresión">
-                            </ckeditor>
+                            <div id="ITImpre" #ITImpre contenteditable="true" >
+                            </div>
                         </div><br>
                         <button id="ex" (click)="generatePdf(med.value,fecf.value,plant.value,medico.value)">Generar
                             Resumen
