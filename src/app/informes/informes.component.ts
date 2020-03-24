@@ -97,7 +97,7 @@ export class InformesComponent implements OnInit, AfterViewInit {
             }
         );
     }
-    config: any = {
+    /*config: any = {
         language: 'es',
         toolbar: [
             { name: 'clipboard', items: ['Cut', 'Copy', 'Paste', '-', 'Undo', 'Redo'] },
@@ -106,7 +106,7 @@ export class InformesComponent implements OnInit, AfterViewInit {
             { name: 'paragraph', items: ['Blockquote', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock', '-'] },
             { name: 'styles', items: ['Styles', 'Format', 'FontSize'] },
         ]
-    }
+    }*/
     //evento al elegir plantilla se cargue tecnica, titulo, y examen realizado
     evtselt(plan: any) {
         var c;
