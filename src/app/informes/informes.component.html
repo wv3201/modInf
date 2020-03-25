@@ -2,7 +2,7 @@
     <div class="table">
         <div class="row">
             <div class="cell1">
-                <button type="button" id=ex (click)=cambiarModo()>Oscuro / Claro</button>
+                <button type="button" class=ex (click)=cambiarModo()>Oscuro / Claro</button>
                 <div id="center">
                     <h5>Datos</h5>
                     <hr><br>
@@ -22,15 +22,15 @@
                         <div>
                             <div>
                                 <label>Médico</label>&nbsp;
-                                <select #med (change)="evtselt2($event.target.value)">
-                                    <option *ngFor="let medi of user" value="{{medi.Nombre}}">{{medi.Nombre}}</option>
+                                <select #med class="abs" (change)="evtselt2($event.target.value)">
+                                    <option *ngFor="let medi of user" class="abs" value="{{medi.Nombre}}">{{medi.Nombre}}</option>
                                 </select>&nbsp;&nbsp;
                                 <label>Plantilla</label>&nbsp;&nbsp;
-                                <select #plant (change)="evtselt($event.target.value)">
-                                    <option *ngFor="let plan of us" value="{{plan.nombre}}">{{plan.nombre}}</option>
+                                <select #plant class="abs" (change)="evtselt($event.target.value)">
+                                    <option *ngFor="let plan of us" class="abs" value="{{plan.nombre}}">{{plan.nombre}}</option>
                                 </select>
                             </div><br>
-                            <div id="ex">
+                            <div class="ex">
                                 <!--<label>Elegir firma medico</label><br>
                             <div>
                                 <input id="exe" type="file" class="form-control-file"
@@ -41,7 +41,7 @@
                             </div><br>-->
                                 <div>
                                     <label>Declarar Medico informante: </label>
-                                    <select #medico (change)="evtselt3($event.target.value)">
+                                    <select #medico class="abs2" (change)="evtselt3($event.target.value)">
                                         <option *ngFor="let me of m" value="{{me.id}}">{{me.Nombre}}</option>
                                     </select>
                                 </div>
@@ -52,13 +52,13 @@
                                 <input id="exs" type="date" #fecf name="fecha"
                                     (change)="evtselt4($event.target.value)"><br>
                                 <label>Examen Realizado</label>&nbsp;&nbsp;<br>
-                                <textarea id="ex" class="abs" [(ngModel)]='ITAnte' type="text" name="Antecedentes"
-                                    value="{{ITAnte}}"></textarea>
+                                <input class="ex" id="exs" [(ngModel)]='ITAnte' type="text" name="Antecedentes"
+                                    value="{{ITAnte}}">
                             </div>
                         </div>
                         <label>Técnica</label>&nbsp;&nbsp;<br>
-                        <textarea id="ex" class="abs" [(ngModel)]='tec' type="text" name="tecnica"
-                            value="{{tec}}"></textarea>
+                        <input class="ex" id="abs" [(ngModel)]='tec' type="text" name="tecnica"
+                            value="{{tec}}">
                         <br>
                         <h5>Observaciones</h5>
                         <div>
@@ -82,14 +82,14 @@
                         </div>
                         <div>
                             <br>
-                            <mat-icon>description</mat-icon>&nbsp;<label>Hallazgos</label>&nbsp;&nbsp;
+                            <mat-icon id="ex">description</mat-icon>&nbsp;<label>Hallazgos</label>&nbsp;&nbsp;
                             <!--<button id="ex" (click)="cleanh()">
                                 <mat-icon>cancel</mat-icon>
                             </button>&nbsp;--><br>
                             <div id="ITHalla" contenteditable=true>
                             </div>
                             <br>
-                            <mat-icon>textsms</mat-icon>&nbsp;<label>Impresión</label>&nbsp;
+                            <mat-icon id="ex">textsms</mat-icon>&nbsp;<label>Impresión</label>&nbsp;
                             <!--<button id="ex" (click)="cleani()">
                                 <mat-icon>cancel</mat-icon>
                             </button>&nbsp;--><br>
@@ -105,7 +105,7 @@
             </div>
             <div class="cell3"><br>
                 <div id="center">
-                    <div id="ex" class="top">
+                    <div class="ex" class="top">
                         <b>Informes previos</b><Br>
                         <!--<tr *ngFor="let exam of bd" (click)="verExamen(exam)">
                             <ng-container *ngIf="exam.idPaciente == data.id">

@@ -109,6 +109,7 @@ div.colspan > div > div {
   width: 100%;
   height: 104px;
   border:1px solid grey;
+  border-radius: 10px;
   //color: #fff;
   //background-color: #212121;
   
@@ -116,14 +117,20 @@ div.colspan > div > div {
 #b {
   width: 256px;
   height: 58px;
-  border-radius: 5px;
+  border-radius: 10px;
   //border:1px solid black;
 }
 #ex {
+  border-radius: 10px;
+  //background-color :#2d90fa;
+  //color: #b1b1b1
+}
+.ex {
   border-radius: 5px;
+  //color :#2d90fa;
 }
 #exs {
-  border-radius: 5px;
+  border-radius: 10px;
   width: 256px;
 }
 #exe {
@@ -187,7 +194,18 @@ div.colspan > div > div {
   }
   #abs{
     height: 36px !important;
-    width: 40% !important;
+    width: 90% !important;
+    border-radius: 10px !important;
+  }
+  .abs{
+    height: 36px !important;
+    width: 35% !important;
+    border-radius: 10px !important;
+  }
+  .abs2{
+    height: 36px !important;
+    width: 60% !important;
+    border-radius: 10px !important;
   }
   input,
   textarea.abs{
@@ -200,7 +218,7 @@ div.colspan > div > div {
     margin-bottom: 0px;
     background-color: #fff;
     border: 2px solid #eaeaea;
-    border-radius: 2px;
+    border-radius: 10px;
     padding-left: 15px;
     padding-right: 15px;
     font-size: 14px;
@@ -241,7 +259,7 @@ div.colspan > div > div {
     margin-bottom: 0px;
     background-color: #fff;
     border: 2px solid #eaeaea;
-    border-radius: 2px;
+    border-radius: 10px;
     padding-left: 15px;
     padding-right: 15px;
     font-size: 14px;
