@@ -9,7 +9,6 @@ export class HttpServiceService {
   constructor(private http: HttpClient) { }
   apiUrl = 'https://jsonplaceholder.typicode.com';
   getData(): Observable<any> {
-    console.log("1");
     return this.http.get(this.apiUrl + '/users');
   }
 }

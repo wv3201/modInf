@@ -38,7 +38,10 @@ body {
     color: rgba(163, 163, 162);
     background: #212121;
   }
-  
+  #ITHalla,#ITImpre {
+    color:#fff;
+    background-color: #212121;
+  }
 }
 .white {
   background: #fff !important;
@@ -106,6 +109,9 @@ div.colspan > div > div {
   width: 100%;
   height: 104px;
   border:1px solid grey;
+  //color: #fff;
+  //background-color: #212121;
+  
 }
 #b {
   width: 256px;
