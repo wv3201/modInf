@@ -379,7 +379,7 @@ export class InformesComponent implements OnInit, AfterViewInit {
         const timeDiff = Math.abs(Date.now() - convertAge.getTime());
         this.data.edad = Math.floor((timeDiff / (1000 * 3600 * 24))/365);*/
         this.data.edad = this.calcularEdad(this.data.fechaNac);
-        this.documentDefinition3 = this.pdf.loadTemplate(this.data, this.upper(this.ITImpre), this.upper(this.ITHalla), this.ITAnte, null, this.tec, this.profilePic, this.fecha, this.plantilla, this.medicoI);
+        //this.documentDefinition3 = this.pdf.loadTemplate(this.data, this.upper(this.ITImpre), this.upper(this.ITHalla), this.ITAnte, null, this.tec, this.profilePic, this.fecha, this.plantilla, this.medicoI);
         //this.pdf1(this.documentDefinition3);
         //this.evtselt2('Seleccione medico');
     }
@@ -490,7 +490,9 @@ export class InformesComponent implements OnInit, AfterViewInit {
     }
     upper(frase) {
         //frase = this.transcod(frase);
-        frase=this.contar(frase);
+        if(frase != ""){
+            frase=this.contar(frase);
+        }
         console.log(frase)
         this.frase2 = '';
         var ind;
@@ -624,7 +626,7 @@ export class InformesComponent implements OnInit, AfterViewInit {
                 }
             }
             this.frase2+=frase.substring(indice,indice+1).toUpperCase()+frase.substring(indice+1,frase.length);
-            return this.frase2 + ' ';
+            return this.frase2.replace('<br><br>','<br>') + ' ';
         }
     }
     //replace
@@ -644,15 +646,34 @@ export class InformesComponent implements OnInit, AfterViewInit {
     }
     contar(str:any) {
         var ind=0;
+        var frase=str.split('<ol>');
         var i = 0;
         var ol= str.indexOf('<ol>',ind);
         var ul= str.indexOf('<ul>',ind);
-        console.log(ol);
-        console.log(ul);
+        str='';
+        var frase2
+        console.log(frase.length)
+        for(var i=0;i<frase.length;i++){
+            if(frase[i].indexOf('</ol',0)>=0){
+                frase2=frase[i].split('</ol>');
+                for(var j=0;j<frase2.length;j++){
+                    str+=frase2[j]+'<br>';
+                }    
+            }else {
+                str += frase[i]+'<br>';
+                console.log(str)
+            }    
+            
+        }
+        console.log(frase2)
+        //console.log(frase[0]);
+        //console.log(frase[1]);
+        //console.log(str);
+        //console.log(ul);
         if(ol>=0){
           str=str.replace('<ol>','').replace('</ol>','');
         var pos = str.indexOf('<li>',ind);
-        console.log(pos);
+        //console.log(pos);
         while (pos >= 0) {
           if (pos >= 0) {
             this.veces++;
@@ -666,14 +687,13 @@ export class InformesComponent implements OnInit, AfterViewInit {
       }else if(ul>=0){
         str=str.replace('<ul>','').replace('</ul>','');
       var pos = str.indexOf('<li>',ind);
-      console.log(pos);
+      //console.log(pos);
       while (pos >= 0) {
         if (pos >= 0) {
           this.veces++;
         }
         str = str.replace('<li>','&#149;. ').replace('</li>','<br>');
         pos = str.indexOf('<li>', ind);
-
       }
       return str;
     }else {
