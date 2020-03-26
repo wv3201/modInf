@@ -10,10 +10,33 @@ export class PdfService {
   profilePic;
   impre: any;
   halla: any;
-
+  veces:any=0;
   constructor() { }
+  /*contar(str:any) {
+    var ind=0;
+    var i = 1;
+    var ol= str.indexOf('<ol>',ind);
+    if(ol>=1){
+      str=str.replace('<ol>','').replace('</ol>','');
+    var pos = str.indexOf('<li>',ind);
+    while (pos > 0) {
+      str = str.replace('<li>',i+'. ').replace('</li>','<br>');
+      if (pos >= 0) {
+        this.veces++;
+        i++;
+      }
+      pos = str.indexOf('<li>', ind);
+    }
+    console.log(str);
+    return str;
+  }else{
+    console.log(false);
+    return str;
+    }
+  }*/
   loadTemplate(data: any, impre: any, halla: any, ante: any, D: any, tec, profilePic, fecf, p, m: any) {
     this.profilePic = profilePic;
+    console.log(halla);
     var stil = {
       'html-strong': { color: 'solid black', bold: true },
       'html-em': { italics: true },
@@ -30,13 +53,17 @@ export class PdfService {
       'html-h6': { fontSize: 14, bold: true, marginBottom: 5 },
       'html-a': { color: 'blue', decoration: 'underline' },
       'html-strike': { decoration: 'lineThrough' },
-      'html-ul': { marginBottom: 5 },
-      'html-li': { marginLeft: 5 },
       'html-table': { marginBottom: 5 },
       'html-th': { bold: true, fillColor: '#EEEEEE' }
     }
+    //halla=halla.substring(4,halla.length-10)
+/*
+    console.log(halla);
+    console.log(this.contar(halla));
+  */  
     this.impre = htmlToPdfmake(impre);
-    this.halla = htmlToPdfmake(halla);
+    this.halla = htmlToPdfmake((halla));
+    console.log(this.halla)
     //console.log(halla);
     if (D == null) {
       //console.log("2.1")
@@ -238,4 +265,5 @@ export class PdfService {
       }]]
     }
   }
+  
 }

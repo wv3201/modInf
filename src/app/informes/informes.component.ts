@@ -72,7 +72,8 @@ export class InformesComponent implements OnInit, AfterViewInit {
     frase2: any = '';
     content:any = false;
     showSearchButton2: boolean;
-    ckeditorContent: string = ""
+    ckeditorContent: string = "";
+    veces:any=0;
     @ViewChild('CKEditorComponent.inline') ckeditor: CKEditorComponent;
     constructor(sanity: DomSanitizer, private http: HttpClient, public speechRecognitionService: SpeechService, private Service: HttpServiceService, private pdf: PdfService, private matDialog: MatDialog, public forms: FormsModule, private rutaActiva: ActivatedRoute, private infor: InformesService) {
         this.loadS();
@@ -489,7 +490,8 @@ export class InformesComponent implements OnInit, AfterViewInit {
     }
     upper(frase) {
         //frase = this.transcod(frase);
-        
+        frase=this.contar(frase);
+        console.log(frase)
         this.frase2 = '';
         var ind;
         var i = frase.indexOf('. ', ind);
@@ -521,7 +523,7 @@ export class InformesComponent implements OnInit, AfterViewInit {
             return frase;
         } else {
             while (indicePunto >= 0) {
-                console.log(frase.substring(indice,indice+1)+frase.substring(indice+12,indice+13))
+                console.log(frase.substring(indice,indice+8))
                 if (frase.substring(indice, indice + 6) == ('&quot;')) {
                     this.frase2 += '"'
                     this.frase2 += frase.substring(indice + 6, indice + 7).toUpperCase();
@@ -534,7 +536,18 @@ export class InformesComponent implements OnInit, AfterViewInit {
                     this.frase2 += frase.substring(indice + 9, indicePunto + 1) + ' ';
                     indice = indicePunto + 1;
                     indicePunto = frase.indexOf('.', indice);
-                }  else if (frase.substring(indice, indice + 4) == ('<em>')) {
+                } else if (frase.substring(indice, indice + 8) == ('<ol><li>') || frase.substring(indice, indice + 8) == ('<ul><li>')) {
+                    this.frase2 += frase.substring(indice,indice+8);
+                    this.frase2 += ' '+frase.substring(indice + 8, indice + 9).toUpperCase();
+                    this.frase2 += frase.substring(indice + 9, indicePunto + 1);
+                    console.log(frase.substring(indicePunto+1,indicePunto+11));
+                    if(frase.substring(indicePunto+1,indicePunto+11)=='</ol></li>'){
+                        indice= indicePunto+14;
+                    }else{
+                    indice = indicePunto + 1;
+                }
+                    indicePunto = frase.indexOf('.', indice);
+                } else if (frase.substring(indice, indice + 4) == ('<em>')) {
                     this.frase2 += '<em>'
                     this.frase2 += frase.substring(indice + 4, indice + 5).toUpperCase();
                     this.frase2 += frase.substring(indice + 5, indicePunto + 1) + ' ';
@@ -610,6 +623,7 @@ export class InformesComponent implements OnInit, AfterViewInit {
                     }
                 }
             }
+            this.frase2+=frase.substring(indice,indice+1).toUpperCase()+frase.substring(indice+1,frase.length);
             return this.frase2 + ' ';
         }
     }
@@ -628,4 +642,42 @@ export class InformesComponent implements OnInit, AfterViewInit {
         console.log(str);
         return str;
     }
+    contar(str:any) {
+        var ind=0;
+        var i = 0;
+        var ol= str.indexOf('<ol>',ind);
+        var ul= str.indexOf('<ul>',ind);
+        console.log(ol);
+        console.log(ul);
+        if(ol>=0){
+          str=str.replace('<ol>','').replace('</ol>','');
+        var pos = str.indexOf('<li>',ind);
+        console.log(pos);
+        while (pos >= 0) {
+          if (pos >= 0) {
+            this.veces++;
+            i++;
+          }
+          str = str.replace('<li>',i+'. ').replace('</li>','<br>');
+          pos = str.indexOf('<li>', ind);
+
+        }
+        return str;
+      }else if(ul>=0){
+        str=str.replace('<ul>','').replace('</ul>','');
+      var pos = str.indexOf('<li>',ind);
+      console.log(pos);
+      while (pos >= 0) {
+        if (pos >= 0) {
+          this.veces++;
+        }
+        str = str.replace('<li>','&#149;. ').replace('</li>','<br>');
+        pos = str.indexOf('<li>', ind);
+
+      }
+      return str;
+    }else {
+        return str;
+      }
 } 
+}
