@@ -382,7 +382,7 @@ export class InformesComponent implements OnInit, AfterViewInit {
         /*const convertAge = new Date(this.data.fechaNac);
         const timeDiff = Math.abs(Date.now() - convertAge.getTime());
         this.data.edad = Math.floor((timeDiff / (1000 * 3600 * 24))/365);*/
-        this.data.edad = this.calcularEdad(this.data.fechaNac);
+        this.data.edad = this.calcularEdad(this.data.birthdate);
         //this.documentDefinition3 = this.pdf.loadTemplate(this.data, this.upper(this.ITImpre), this.upper(this.ITHalla), this.ITAnte, null, this.tec, this.profilePic, this.fecha, this.plantilla, this.medicoI);
         //this.pdf1(this.documentDefinition3);
         //this.evtselt2('Seleccione medico');
