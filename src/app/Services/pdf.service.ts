@@ -36,7 +36,6 @@ export class PdfService {
   }*/
   loadTemplate(data: any, impre: any, halla: any, ante: any, D: any, tec, profilePic, fecf, p, m: any) {
     this.profilePic = profilePic;
-    console.log(halla);
     var stil = {
       'html-strong': { color: 'solid black', bold: true },
       'html-em': { italics: true },

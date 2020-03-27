@@ -70,10 +70,14 @@ export class InformesComponent implements OnInit, AfterViewInit {
     estado: boolean = false;
     temp = '';
     frase2: any = '';
-    content:any = false;
+    content: any = false;
     showSearchButton2: boolean;
     ckeditorContent: string = "";
-    veces:any=0;
+    veces: any = 0;
+    frase3: any;
+    frase4: any;
+    arr: any;
+    arr2: any;
     @ViewChild('CKEditorComponent.inline') ckeditor: CKEditorComponent;
     constructor(sanity: DomSanitizer, private http: HttpClient, public speechRecognitionService: SpeechService, private Service: HttpServiceService, private pdf: PdfService, private matDialog: MatDialog, public forms: FormsModule, private rutaActiva: ActivatedRoute, private infor: InformesService) {
         this.loadS();
@@ -268,8 +272,8 @@ export class InformesComponent implements OnInit, AfterViewInit {
     }
     //metodo para generar informe en pdf
     generatePdf(med, fecf: string, plant, me) {
-        this.ITHalla=document.getElementById("ITHalla").innerHTML;
-        this.ITImpre=document.getElementById("ITImpre").innerHTML;
+        this.ITHalla = document.getElementById("ITHalla").innerHTML;
+        this.ITImpre = document.getElementById("ITImpre").innerHTML;
         for (let i = 0; i < users.length; i++) {
             if (med == users[i].Nombre) {
                 this.as = fecf.split("-");
@@ -307,8 +311,8 @@ export class InformesComponent implements OnInit, AfterViewInit {
         });
     }
     imge() {
-        this.ITHalla=document.getElementById("ITHalla").innerHTML;
-        this.ITImpre=document.getElementById("ITImpre").innerHTML;
+        this.ITHalla = document.getElementById("ITHalla").innerHTML;
+        this.ITImpre = document.getElementById("ITImpre").innerHTML;
         this.documentDefinition3 = this.pdf.loadTemplate(this.data, this.upper(this.ITImpre), this.upper(this.ITHalla), this.ITAnte, this.medicos, this.tec, this.profilePic, this.fecha, this.plantilla, this.medicoI);
         this.pdf1(this.documentDefinition3);
         this.iframe = true;
@@ -372,7 +376,7 @@ export class InformesComponent implements OnInit, AfterViewInit {
                 this.data = data[this.id];
             }
         )*/
-        this.content=true;
+        this.content = true;
         this.id = this.rutaActiva.snapshot.params.id;
         this.data = data[this.id];
         /*const convertAge = new Date(this.data.fechaNac);
@@ -490,10 +494,9 @@ export class InformesComponent implements OnInit, AfterViewInit {
     }
     upper(frase) {
         //frase = this.transcod(frase);
-        if(frase != ""){
-            frase=this.contar(frase);
+        if (frase != "") {
+            frase = this.contar(frase);
         }
-        console.log(frase)
         this.frase2 = '';
         var ind;
         var i = frase.indexOf('. ', ind);
@@ -510,12 +513,10 @@ export class InformesComponent implements OnInit, AfterViewInit {
         var ind2;
         var i2 = frase.indexOf('</p>');
         while (i2 >= 0) {
-            console.log(frase)
             frase = frase.replace('</p>', '\n').replace('<p>', '');
             i2 = frase.indexOf('</p>', ind2);
-            console.log(i2);
         }
-        if (frase != '' && frase.substring(0,3)!='<p>') {
+        if (frase != '' && frase.substring(0, 3) != '<p>') {
             frase = '<p>' + frase + '</p>';
         }
         //frase=frase.replace(' ','').replace('. ','.').replace('. ','.');
@@ -525,7 +526,8 @@ export class InformesComponent implements OnInit, AfterViewInit {
             return frase;
         } else {
             while (indicePunto >= 0) {
-                console.log(frase.substring(indice,indice+8))
+                //console.log(frase.substring(indice,indice+8))
+                //console.log(frase.substring(indice, indice + 4))
                 if (frase.substring(indice, indice + 6) == ('&quot;')) {
                     this.frase2 += '"'
                     this.frase2 += frase.substring(indice + 6, indice + 7).toUpperCase();
@@ -539,15 +541,15 @@ export class InformesComponent implements OnInit, AfterViewInit {
                     indice = indicePunto + 1;
                     indicePunto = frase.indexOf('.', indice);
                 } else if (frase.substring(indice, indice + 8) == ('<ol><li>') || frase.substring(indice, indice + 8) == ('<ul><li>')) {
-                    this.frase2 += frase.substring(indice,indice+8);
-                    this.frase2 += ' '+frase.substring(indice + 8, indice + 9).toUpperCase();
+                    this.frase2 += frase.substring(indice, indice + 8);
+                    this.frase2 += ' ' + frase.substring(indice + 8, indice + 9).toUpperCase();
                     this.frase2 += frase.substring(indice + 9, indicePunto + 1);
-                    console.log(frase.substring(indicePunto+1,indicePunto+11));
-                    if(frase.substring(indicePunto+1,indicePunto+11)=='</ol></li>'){
-                        indice= indicePunto+14;
-                    }else{
-                    indice = indicePunto + 1;
-                }
+                    console.log(frase.substring(indicePunto + 1, indicePunto + 11));
+                    if (frase.substring(indicePunto + 1, indicePunto + 11) == '</li></ol>' || frase.substring(indice, indice + 8) == ('</li></ul>')) {
+                        indice = indicePunto + 14;
+                    } else {
+                        indice = indicePunto + 1;
+                    }
                     indicePunto = frase.indexOf('.', indice);
                 } else if (frase.substring(indice, indice + 4) == ('<em>')) {
                     this.frase2 += '<em>'
@@ -555,66 +557,14 @@ export class InformesComponent implements OnInit, AfterViewInit {
                     this.frase2 += frase.substring(indice + 5, indicePunto + 1) + ' ';
                     indice = indicePunto + 1;
                     indicePunto = frase.indexOf('.', indice);
-                } else if( '<' == frase.substring(indice,indice+1) && '>'==frase.substring(indice+12,indice+13)) {
-                    this.frase2 += frase.substring(indice,indice+13);
-                    this.frase2 += frase.substring(indice+13,indice+14).toUpperCase();
-                    this.frase2 += frase.substring(indice+14,indicePunto+1) + '';
-                    indice=indicePunto+1;
-                    indicePunto= frase.indexOf('.', indice);
-                } else if ('<span style="font-size:9px">' == frase.substring(indice, indice + 28) ||
-                    '<span style="font-size:8px">' == frase.substring(indice, indice + 28)) {
-                    this.frase2 += frase.substring(indice, indice + 28);
-                    this.frase2 += frase.substring(indice + 28, indice + 29).toUpperCase();
-                    this.frase2 += frase.substring(indice + 29, indicePunto + 1) + '';
-                    indice = indicePunto + 1;
-                    indicePunto = frase.indexOf('.', indice);
-                } else if ('</span><span style="font-size:9px">' == frase.substring(indice, indice + 35) ||
-                    '</span><span style="font-size:8px">' == frase.substring(indice, indice + 35)) {
-                    this.frase2 += frase.substring(indice, indice + 35);
-                    this.frase2 += frase.substring(indice + 35, indice + 36).toUpperCase();
-                    this.frase2 += frase.substring(indice + 36, indicePunto + 1) + '';
-                    indice = indicePunto + 1;
-                    indicePunto = frase.indexOf('.', indice);
-                } else if ('<span style="font-size:10px">' == frase.substring(indice, indice + 29) ||
-                    '<span style="font-size:11px">' == frase.substring(indice, indice + 29) ||
-                    '<span style="font-size:12px">' == frase.substring(indice, indice + 29) ||
-                    '<span style="font-size:14px">' == frase.substring(indice, indice + 29) ||
-                    '<span style="font-size:16px">' == frase.substring(indice, indice + 29) ||
-                    '<span style="font-size:18px">' == frase.substring(indice, indice + 29) ||
-                    '<span style="font-size:20px">' == frase.substring(indice, indice + 29) ||
-                    '<span style="font-size:22px">' == frase.substring(indice, indice + 29) ||
-                    '<span style="font-size:24px">' == frase.substring(indice, indice + 29) ||
-                    '<span style="font-size:26px">' == frase.substring(indice, indice + 29) ||
-                    '<span style="font-size:28px">' == frase.substring(indice, indice + 29) ||
-                    '<span style="font-size:36px">' == frase.substring(indice, indice + 29) ||
-                    '<span style="font-size:48px">' == frase.substring(indice, indice + 29) ||
-                    '<span style="font-size:72px">' == frase.substring(indice, indice + 29)) {
-                    this.frase2 += frase.substring(indice, indice + 29);
-                    this.frase2 += frase.substring(indice + 29, indice + 30).toUpperCase();
-                    this.frase2 += frase.substring(indice + 30, indicePunto + 1) + '';
-                    indice = indicePunto + 1;
-                    indicePunto = frase.indexOf('.', indice);
-                } else if ('</span><span style="font-size:10px">' == frase.substring(indice, indice + 36) ||
-                    '</span><span style="font-size:11px">' == frase.substring(indice, indice + 36) ||
-                    '</span><span style="font-size:12px">' == frase.substring(indice, indice + 36) ||
-                    '</span><span style="font-size:14px">' == frase.substring(indice, indice + 36) ||
-                    '</span><span style="font-size:16px">' == frase.substring(indice, indice + 36) ||
-                    '</span><span style="font-size:18px">' == frase.substring(indice, indice + 36) ||
-                    '</span><span style="font-size:20px">' == frase.substring(indice, indice + 36) ||
-                    '</span><span style="font-size:22px">' == frase.substring(indice, indice + 36) ||
-                    '</span><span style="font-size:24px">' == frase.substring(indice, indice + 36) ||
-                    '</span><span style="font-size:26px">' == frase.substring(indice, indice + 36) ||
-                    '</span><span style="font-size:28px">' == frase.substring(indice, indice + 36) ||
-                    '</span><span style="font-size:36px">' == frase.substring(indice, indice + 36) ||
-                    '</span><span style="font-size:48px">' == frase.substring(indice, indice + 36) ||
-                    '</span><span style="font-size:72px">' == frase.substring(indice, indice + 36)) {
-                    this.frase2 += frase.substring(indice, indice + 36);
-                    this.frase2 += frase.substring(indice + 36, indice + 37).toUpperCase();
-                    this.frase2 += frase.substring(indice + 37, indicePunto + 1) + '';
-                    indice = indicePunto + 1;
-                    indicePunto = frase.indexOf('.', indice);
+                } else if (frase.substring(indice, indice + 1) == ' ') {
+                    this.frase2 += ' ';
+                    indice++;
+                } else if (frase.substring(indice, indice + 4) == '<br>') {
+                    this.frase2 += '<br>';
+                    indice += 4;
                 } else {
-                    if (frase.substring(indice, indice + 1) != "\n") {
+                    if (frase.substring(indice, indice + 2) != "\n") {
                         this.frase2 += frase.substring(indice, indice + 1).toUpperCase();
                         this.frase2 += frase.substring(indice + 1, indicePunto + 1) + ' ';
                         indice = indicePunto + 1;
@@ -625,8 +575,9 @@ export class InformesComponent implements OnInit, AfterViewInit {
                     }
                 }
             }
-            this.frase2+=frase.substring(indice,indice+1).toUpperCase()+frase.substring(indice+1,frase.length);
-            return this.frase2.replace('<br><br>','<br>') + ' ';
+            this.frase2 += frase.substring(indice, indice + 1).toUpperCase() + frase.substring(indice + 1, frase.length);
+            console.log(this.frase2)
+            return this.frase2.replace('<br><br>', '<br>');
         }
     }
     //replace
@@ -644,60 +595,74 @@ export class InformesComponent implements OnInit, AfterViewInit {
         console.log(str);
         return str;
     }
-    contar(str:any) {
-        var ind=0;
-        var frase=str.split('<ol>');
-        var i = 0;
-        var ol= str.indexOf('<ol>',ind);
-        var ul= str.indexOf('<ul>',ind);
-        str='';
-        var frase2
-        console.log(frase.length)
-        for(var i=0;i<frase.length;i++){
-            if(frase[i].indexOf('</ol',0)>=0){
-                frase2=frase[i].split('</ol>');
-                for(var j=0;j<frase2.length;j++){
-                    str+=frase2[j]+'<br>';
-                }    
-            }else {
-                str += frase[i]+'<br>';
-                console.log(str)
-            }    
-            
-        }
-        console.log(frase2)
+
+
+    contar(str: any) {
+        var ind = 0;
+        var k = 0;
+        var ol = str.indexOf('<ol>', ind);
         //console.log(frase[0]);
         //console.log(frase[1]);
-        //console.log(str);
+        console.log(str);
         //console.log(ul);
-        if(ol>=0){
-          str=str.replace('<ol>','').replace('</ol>','');
-        var pos = str.indexOf('<li>',ind);
-        //console.log(pos);
-        while (pos >= 0) {
-          if (pos >= 0) {
-            this.veces++;
-            i++;
-          }
-          str = str.replace('<li>',i+'. ').replace('</li>','<br>');
-          pos = str.indexOf('<li>', ind);
+        if (ol >= 0) {
+            var frase = str.split('<ol>');
+            str = '';
+            for (var i = 0; i < frase.length; i++) {
+                if (frase[i].indexOf('</ol>', 0) >= 0) {
+                    this.frase3 = frase[i].split('</ol>');
+                    str += ' str ' + this.frase3[1].replace('<p>', '').replace('</p>', '');
 
+                    this.arr = this.frase3[0];
+
+                } else {
+                    str += frase[i];
+                    console.log(str)
+                }
+            }
+            //str=str.replace('<ol>','').replace('</ol>','');
+            var pos = this.arr.indexOf('<li>', ind);
+            //console.log(pos);
+            while (pos >= 0) {
+                if (pos >= 0) {
+                    this.veces++;
+                    k++;
+                }
+                this.arr = this.arr.replace('<li>', k + '. ').replace('</li>', '.<br>');
+                pos = this.arr.indexOf('<li>', ind);
+
+            }
+            str = str.replace('str', '<br>' + this.arr + '<br>');
         }
-        return str;
-      }else if(ul>=0){
-        str=str.replace('<ul>','').replace('</ul>','');
-      var pos = str.indexOf('<li>',ind);
-      //console.log(pos);
-      while (pos >= 0) {
-        if (pos >= 0) {
-          this.veces++;
+        var ul = str.indexOf('<ul>', ind);
+        console.log(ul);
+        if (ul >= 0) {
+            var fras = str.split('<ul>');
+            console.log(fras[1])
+            console.log(fras.length)
+            str = ''
+            for (var i = 0; i < fras.length; i++) {
+                if (fras[i].indexOf('</ul>', 0) >= 0) {
+                    this.frase4 = fras[i].split('</ul>');
+                    str += ' stt ' + this.frase4[1];
+                    this.arr2 = this.frase4[0];
+                } else {
+                    str += fras[i];
+                }
+                console.log(this.arr2)
+                
+            }
+            var pos2 = this.arr2.indexOf('<li>', ind);
+            //console.log(pos);
+            while (pos2 >= 0) {
+                if (pos2 >= 0) {
+                    this.veces++;
+                }
+                this.arr2 = this.arr2.replace('<li>', '&#149;. ').replace('</li>', '<br>');
+                pos2 = this.arr2.indexOf('<li>', ind);
+            }
+            str = str.replace('stt', '<br>' + this.arr2 + '<br>').replace('<p>', '').replace('</p>', '');;
         }
-        str = str.replace('<li>','&#149;. ').replace('</li>','<br>');
-        pos = str.indexOf('<li>', ind);
-      }
-      return str;
-    }else {
-        return str;
-      }
-} 
+        return str.replace('<br><br>','<br>');
+    }
 }
