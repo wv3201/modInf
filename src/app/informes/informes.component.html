@@ -1,0 +1,180 @@
+<body [class]="clase">
+    <!-- <div class="loader" *ngIf="lader"></div> -->
+    <div class="table">
+        <div class="row">
+            <div class="cell1">
+                <!-- Rounded switch -->
+                <label class="switch">
+                    <input type="checkbox" aria-label="boton cambiarModo" (click)=cambiarModo()>
+                    <span class="slider round"></span>
+                </label>
+                <!-- <button type="button" class=ex (click)=cambiarModo()>Oscuro / Claro</button> -->
+                <div class="center">
+                    <h5>Datos</h5>
+                    <hr><br>
+                    <ul>
+                        <li><b>Nombres</b>
+                            <p>{{ data.name }}&nbsp;</p>
+                        </li>
+                        <li><b>Apellidos</b>
+                            <p>{{data.lastname}}&nbsp;{{data.lastname_mother}}</p>
+                        </li>
+                        <li><b>Edad</b>
+                            <p>{{ data.edad }}</p>
+                        </li>
+                        <li><b>Rut</b>
+                            <p>{{ data.rut }}</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="cell2">
+                <form>
+                    <div class="center">
+                        <div>
+                            <div>
+                                <label>Médico </label>&nbsp;
+                                <select #med class="abs" class="con_estilos" aria-label="select médico"
+                                    (change)="evtselt2($event.target.value)">
+                                    <option class="abs" value="{{user.id}}">{{user.username}}</option>
+                                </select><br>
+                                <label>Plantilla</label>&nbsp;
+                                <select #plant class="abs" class="con_estilos" aria-label="select plantilla"
+                                    (change)="evtselt($event.target.value)">
+                                    <!--<option *ngFor="let plan of us" class="abs" value="{{plan.name}}">{{plan.name}}
+                                    </option>-->
+                                    <option>Seleccione Plantilla</option>
+                                </select>
+                                <!--<button class="ex" disabled="" aria-label="Añadir template">
+                                    <mat-icon _ngcontent-eqv-c88="" role="img"
+                                        class="mat-icon notranslate material-icons mat-icon-no-color"
+                                        aria-hidden="true">add</mat-icon>
+                                </button>-->
+                            </div><br>
+                            <div>
+                                <label>Fecha de examen</label>&nbsp;&nbsp;
+                                <input type="text" id="exs" #fecf aria-label="examen" [ngModel]="fromDate" readonly
+                                    name="fecha"><br>
+                                <mat-accordion>
+                                    <mat-expansion-panel expanded=true id="list" (opened)="panelOpenState = true"
+                                        (closed)="panelOpenState = false">
+                                        <mat-expansion-panel-header>
+                                            <mat-panel-title id="lista">
+                                                Examenes Seleccionados
+                                            </mat-panel-title>
+                                            <mat-panel-description>
+                                            </mat-panel-description>
+                                        </mat-expansion-panel-header>
+                                        <ul *ngFor="let exam of inf">
+                                            <li>{{exam}}</li>
+                                        </ul>
+                                    </mat-expansion-panel>
+                                </mat-accordion><br>
+                            </div>
+                        </div>
+                        <label>Técnica</label>&nbsp;&nbsp;<br>
+                        <input class="ex" id="abs" [(ngModel)]='tec' type="text" aria-label="técnica" name="tecnica"
+                            value="{{tec}}">
+                        <br>
+                        <!-- <h5>Observaciones</h5>
+                        <div>
+                            <ng-keyboard-shortcuts [shortcuts]="shortcuts2"></ng-keyboard-shortcuts>
+                            <button _ngcontent-eqv-c88="" aria-label="Start/Stop Reccord" class="ex" (click)="Estado()">
+                                <mat-icon _ngcontent-eqv-c88="" role="img"
+                                    class="mat-icon notranslate material-icons mat-icon-no-color" aria-hidden="true">
+                                    {{ started ? 'mic_off' : 'mic'}}</mat-icon>
+                            </button>&nbsp;
+                            <button class="ex" (click)="addH()" aria-label="Añadir a Hallazgos">
+                                <mat-icon _ngcontent-eqv-c88="" role="img"
+                                    class="mat-icon notranslate material-icons mat-icon-no-color" aria-hidden="true">
+                                    description</mat-icon>
+                            </button>&nbsp;
+                            <button class="ex" (click)="addI()" aria-label="añadir a impresion">
+                                <mat-icon _ngcontent-eqv-c88="" role="img"
+                                    class="mat-icon notranslate material-icons mat-icon-no-color" aria-hidden="true">
+                                    textsms</mat-icon>
+                            </button>&nbsp;
+                            <button class="ex" (click)="clean()" aria-label="Limpiar texto">
+                                <mat-icon _ngcontent-eqv-c88="" role="img"
+                                    class="mat-icon notranslate material-icons mat-icon-no-color" aria-hidden="true">
+                                    cancel</mat-icon>
+                            </button>&nbsp;<br>
+                            
+                        </div> -->
+                        <div>
+                            <ng-keyboard-shortcuts [shortcuts]="shortcuts2"></ng-keyboard-shortcuts>
+                            <br>
+                            <button aria-label="Start/Stop Reccord" class="ex" (click)="Estado()">
+                                <mat-icon role="img" class="mat-icon notranslate material-icons mat-icon-no-color"
+                                    aria-hidden="true">
+                                    {{ started ? 'mic_off' : 'mic'}}</mat-icon>
+                            </button>&nbsp;<mat-icon class="exa">description</mat-icon>
+                            &nbsp;<label>Hallazgos</label>&nbsp;&nbsp;
+                            <button class="ex" (click)="cleanH()" aria-label="vaciar Hallazgos">
+                                <mat-icon role="img" class="mat-icon notranslate material-icons mat-icon-no-color"
+                                    aria-hidden="true">
+                                    cancel</mat-icon>
+                            </button>&nbsp;
+                            <label class="ab" aria-label="temp">{{temp}}</label>
+                            <div id="ITHalla" contenteditable=true>
+                            </div>
+                            <br>
+                            <button aria-label="Start/Stop Reccord" class="ex" (click)="Estado2()">
+                                <mat-icon role="img" class="mat-icon notranslate material-icons mat-icon-no-color"
+                                    aria-hidden="true">
+                                    {{ started2 ? 'mic_off' : 'mic'}}</mat-icon>
+                            </button>&nbsp;<mat-icon class="exa">textsms</mat-icon>&nbsp;<label>Impresión</label>&nbsp;
+                            <button class="ex" (click)="cleanI()" aria-label="vaciar impresion">
+                                <mat-icon role="img" class="mat-icon notranslate material-icons mat-icon-no-color"
+                                    aria-hidden="true">
+                                    cancel</mat-icon>
+                            </button>&nbsp;
+                            <label class="ab" aria-label="temp">{{temp2}}</label>
+                            <div id="ITImpre" contenteditable="true">
+                            </div>
+                        </div><br>
+                        <button class="ex" (click)="generatePdf(med.value,fecf.value,plant.value)">Generar
+                            Resumen
+                            <mat-icon>feedback</mat-icon>
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <div class="cell3"><br>
+                <div class="center">
+                    <div class="ex" class="top">
+                        <b>Informes previos</b><Br>
+                        <br>
+                    </div>
+                    <div class="mid">
+                        <!--<button class="ex" (click)=abrirModal()>
+                            <mat-icon>collections</mat-icon>
+                        </button>-->
+                        <label></label><br>
+                        <label></label><br>
+                        <label></label><br>
+                        <label></label><br>
+                        <label></label><br>
+                        <label></label><br>
+                        <label></label><br>
+                        <label></label><br>
+                        <label></label><br>
+                        <label></label><br>
+                    </div>
+                    <div id=pdf class="bot">
+                        <br>
+                        <button class=ex (click)="imge()">Previsualizar</button>
+                        <button class=ex>Validar y finalizar</button>
+                        <button class=ex>Validar y siguiente</button>
+
+                        <br>
+                        <iframe *ngIf="iframe" id="plugin" type="application/pdf" [src]='img'
+                            stream-url="chrome-extension://mhjfbmdgcfjbbpaeojofohoefgiehjai/9998104a-f5f8-43cf-b25c-0a193ae75822"
+                            headers="Content-Length: 11570 Content-Type: application/pdf" background-color="0xFF525659"
+                            top-toolbar-height="36" javascript="allow" full-frame=""></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
